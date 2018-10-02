@@ -17,8 +17,8 @@ public class RobotMap {
   public class Ports {
     public static final int
     gamepad1 = 0,
-    g1_leftYAxis = 0,
-    g1_rightYAxis = 1,
+    g1_leftYAxis = 1,
+    g1_rightYAxis = 3,
 
     leftMotorPort = 1,
     rightMotorPort = 0,
