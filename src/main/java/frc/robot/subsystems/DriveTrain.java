@@ -28,8 +28,8 @@ public class DriveTrain extends Subsystem {
   }
 
   public void setVolts(double L, double R) {
-    leftMotor.set(-L);
-    rightMotor.set(R);
+    leftMotor.set(-L/10);
+    rightMotor.set(R/10);
   }
 
   public void stopVolts() {
