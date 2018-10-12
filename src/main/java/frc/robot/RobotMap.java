@@ -19,14 +19,19 @@ public class RobotMap {
     gamepad1 = 0,
     g1_leftYAxis = 1,
     g1_rightYAxis = 3,
-
+    g1_rightXAxis = 2,
+    
     leftMotorPort = 1,
     rightMotorPort = 0,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
     rightEncoderChannelA = 6,
-    rightEncoderChannelB = 7;
-    //g1_left/rightYAxis are arbitray, so TODO: find actual port values
+    rightEncoderChannelB = 7,
+
+    gearPistonFor = 10,
+    gearPistonRev = 11,
+    buttonA = 2;
+    // The bottom 3 ports are just placeholders TODO: Find these ports and change them
   }
 }

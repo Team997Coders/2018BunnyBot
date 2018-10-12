@@ -10,10 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class TankDrive extends Command {
-  public TankDrive() {
-    requires(Robot.driveTrain);
-  }
+public class ArcadeDrive extends Command {
+  // public ArcadeDrive() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    public ArcadeDrive(){
+      requires(Robot.driveTrain);
+    }
 
   // Called just before this Command runs the first time
   @Override
@@ -23,10 +26,10 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftVolts = (Robot.oi.getLeftYAxis() * .5);
-    double rightVolts = (Robot.oi.getRightYAxis() * .5);
+    double leftVolts = (Robot.oi.getLeftYAxis() - Robot.oi.getRightXAxis());
+    double rightVolts = (Robot.oi.getLeftYAxis() + Robot.oi.getRightXAxis());
 
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    Robot.driveTrain.setVolts(leftVolts * .3, rightVolts * .3);
   }
 
   // Make this return true when this Command no longer needs to run execute()

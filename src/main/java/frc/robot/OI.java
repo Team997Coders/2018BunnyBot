@@ -24,6 +24,10 @@ public class OI {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_rightYAxis);
   }
 
+  public double getRightXAxis() {
+    return gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
+  }
+
   public double getLeftYAxis() {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_leftYAxis);
   }

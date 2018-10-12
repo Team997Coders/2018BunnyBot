@@ -7,11 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class TankDrive extends Command {
-  public TankDrive() {
+public class DriveToDistance extends Command {
+  private double speed;
+  public DriveToDistance(double _speed) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    speed = _speed;
     requires(Robot.driveTrain);
   }
 
@@ -23,10 +27,7 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftVolts = (Robot.oi.getLeftYAxis() * .5);
-    double rightVolts = (Robot.oi.getRightYAxis() * .5);
-
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    Robot.driveTrain.setVolts(speed,speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,6 +46,5 @@ public class TankDrive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
