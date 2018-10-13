@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.RobotMap;
 
@@ -25,6 +25,10 @@ public class DriveTrain extends Subsystem {
     leftEncoder = new Encoder(RobotMap.Ports.leftEncoderChannelA, RobotMap.Ports.leftEncoderChannelB);
     rightEncoder = new Encoder(RobotMap.Ports.rightEncoderChannelA, RobotMap.Ports.rightEncoderChannelB);
     rightEncoder.setReverseDirection(true);
+    leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    leftEncoder.reset();
+    rightEncoder.reset();
   }
 
   public void setVolts(double L, double R) {
@@ -44,5 +48,10 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new TankDrive());
+  }
+  public void UpdateSmartDashboard(){
+    SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
+    SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
+
   }
 }

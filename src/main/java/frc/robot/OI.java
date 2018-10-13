@@ -9,8 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CollectBalls;
-import frc.robot.commands.UnCollectBalls;
+import frc.robot.commands.*;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -24,9 +23,9 @@ public class OI {
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
-    collect = new JoystickButton(gamepad1, RobotMap.Ports.collectButton);
+    collect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonCircle);
     collect.whileHeld(new CollectBalls(1));
-    uncollect = new JoystickButton(gamepad1, RobotMap.Ports.unCollectButton);
+    uncollect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
     uncollect.whileHeld(new UnCollectBalls(1));
   }
 
