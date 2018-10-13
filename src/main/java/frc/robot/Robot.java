@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -45,7 +47,8 @@ public class Robot extends TimedRobot {
 
     chooser.addDefault("Default", null);
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-
+    chooser.addObject("Go Forward Nerd", new DriveForward());
+    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
     SmartDashboard.putData("Auto commands", chooser);
   }
 

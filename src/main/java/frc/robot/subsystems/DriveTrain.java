@@ -36,6 +36,7 @@ public class DriveTrain extends Subsystem {
     updateSmarts();
   }
 
+
   public void setGear(double gearNum) {
     if (gearNum == 1 && lastGearNum != 1){
       shiftSolenoid.set(Value.kForward);
@@ -54,9 +55,21 @@ public class DriveTrain extends Subsystem {
     rightMotor.set(0);
   }
 
-  public int getLeftTicks() { return leftEncoder.get(); }
+  public int getLeftTicks() { 
+    return leftEncoder.get(); 
+  }
 
-  public int getRightTicks() { return rightEncoder.get(); }
+  public int getRightTicks() { 
+    return rightEncoder.get(); 
+  }
+  
+  public void resetTicks() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  
+  }
+
+
 
   public void updateSmarts() {
     SmartDashboard.putString("idk", "YEEET");

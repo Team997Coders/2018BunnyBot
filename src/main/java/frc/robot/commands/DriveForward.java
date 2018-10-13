@@ -6,28 +6,34 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
-
-public class GearShift extends Command {
-  public GearShift() {
-    // Use requires() here to declare subsystem dependencies
+import frc.robot.Robot;
+public class DriveForward extends Command {
+  public DriveForward() {
+   requires(Robot.driveTrain); // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.driveTrain.resetTicks();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.driveTrain.setVolts(.1, .1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if (Robot.driveTrain.getLeftTicks() >= 1000 || Robot.driveTrain.getRightTicks()>= 1000){
+      return true;
+    }
+
     return false;
   }
 
