@@ -10,11 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArcadeDrive extends Command {
+public class UnCollectBalls extends Command {
+  
+  private double volts; 
 
-  public ArcadeDrive() {
-    requires(Robot.driveTrain);
+  public UnCollectBalls(double voltage) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.intake);
+    volts = voltage;
   }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -23,11 +29,7 @@ public class ArcadeDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double leftVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
-    double rightVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
-
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    Robot.intake.uncollect(volts);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +41,7 @@ public class ArcadeDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.driveTrain.stopVolts();
+    Robot.intake.uncollect(0);
   }
 
   // Called when another command which requires one or more of the same

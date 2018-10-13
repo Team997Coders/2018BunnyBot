@@ -18,6 +18,7 @@ public class RobotMap {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
+    g1_rightXAxis = 2,
     g1_rightYAxis = 3,
     g1_rightXAxis = 2,
     
@@ -31,7 +32,19 @@ public class RobotMap {
 
     gearPistonFor = 10,
     gearPistonRev = 11,
-    buttonA = 2;
-    // The bottom 3 ports are just placeholders TODO: Find these ports and change them
+    buttonA = 1,
+    
+    intakeMotorPort = 3,
+    ButtonCircle = 2,
+    ButtonX = 1,
+
+   
+
+    //g1_left/rightYAxis are arbitray, so TODO: find actual port values
+  }
+  public class Values{
+    public static double
+    
+    ticksPerFoot = 7565;
   }
 }

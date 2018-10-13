@@ -43,11 +43,15 @@ public class DriveTrain extends Subsystem {
     } else {
       shiftSolenoid.set(Value.kReverse);
     }
+    leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    leftEncoder.reset();
+    rightEncoder.reset();
   }
 
   public void setVolts(double L, double R) {
-    leftMotor.set(-L);
-    rightMotor.set(R);
+    leftMotor.set(-L/10);
+    rightMotor.set(R/10);
   }
 
   public void stopVolts() {
@@ -79,5 +83,9 @@ public class DriveTrain extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive());
   }
+  public void UpdateSmartDashboard(){
+    SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
+    SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
 
+  }
 }
