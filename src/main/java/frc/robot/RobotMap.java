@@ -20,7 +20,8 @@ public class RobotMap {
     g1_leftYAxis = 1,
     g1_rightXAxis = 2,
     g1_rightYAxis = 3,
-
+    g1_rightXAxis = 2,
+    
     leftMotorPort = 1,
     rightMotorPort = 0,
 

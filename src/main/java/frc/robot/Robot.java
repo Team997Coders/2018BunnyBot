@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.BallIntake;
 
@@ -42,7 +45,12 @@ public class Robot extends TimedRobot {
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", chooser);
+
+    chooser.addDefault("Default", null);
+    chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
+    chooser.addObject("Go Forward Nerd", new DriveForward());
+    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
+    SmartDashboard.putData("Auto commands", chooser);
   }
 
   /**

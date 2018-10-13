@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ArcadeDrive extends Command {
+
   public ArcadeDrive() {
     requires(Robot.driveTrain);
   }
-
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -23,6 +23,7 @@ public class ArcadeDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
     double leftVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
     double rightVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
 
@@ -48,6 +49,3 @@ public class ArcadeDrive extends Command {
     end();
   }
 }
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
- 
