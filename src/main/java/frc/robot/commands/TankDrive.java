@@ -23,8 +23,8 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftVolts = (Robot.oi.getLeftYAxis() * .5);
-    double rightVolts = (Robot.oi.getRightYAxis() * .5);
+    double leftVolts = (Robot.oi.getLeftYAxis());
+    double rightVolts = (Robot.oi.getRightYAxis());
 
     Robot.driveTrain.setVolts(leftVolts, rightVolts);
   }
