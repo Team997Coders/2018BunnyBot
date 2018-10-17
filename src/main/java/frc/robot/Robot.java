@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     chooser.addDefault("Default", null);
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward Nerd", new DriveForward());
-    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
+    chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
     SmartDashboard.putData("Auto commands", chooser);
   }
 
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    driveTrain.updateSmarts();
   }
 
   /**

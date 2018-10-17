@@ -29,9 +29,13 @@ public class RobotMap {
     rightEncoderChannelA = 6,
     rightEncoderChannelB = 7,
 
-    gearPistonFor = 10,
-    gearPistonRev = 11,
+    gearPistonFor = 2,
+    gearPistonRev = 3,
     buttonA = 2;
-    // The bottom 3 ports are just placeholders TODO: Find these ports and change them
+
+  }
+  public class Values {
+    public static final double  
+      ticksPerFoot = 7565;
   }
 }

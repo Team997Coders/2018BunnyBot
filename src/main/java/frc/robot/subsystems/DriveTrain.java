@@ -46,8 +46,8 @@ public class DriveTrain extends Subsystem {
   }
 
   public void setVolts(double L, double R) {
-    leftMotor.set(-L);
-    rightMotor.set(R);
+    leftMotor.set(L);
+    rightMotor.set(-R);
   }
 
   public void stopVolts() {
@@ -73,6 +73,8 @@ public class DriveTrain extends Subsystem {
 
   public void updateSmarts() {
     SmartDashboard.putString("idk", "YEEET");
+    SmartDashboard.putNumber("Left Encoder Out",getLeftTicks());
+    SmartDashboard.putNumber("Right Encoder Out",getRightTicks());
   }
 
   @Override

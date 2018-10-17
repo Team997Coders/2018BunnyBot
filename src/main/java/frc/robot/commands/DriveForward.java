@@ -24,13 +24,13 @@ public class DriveForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.setVolts(.1, .1);
+    Robot.driveTrain.setVolts(.5, .5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Robot.driveTrain.getLeftTicks() >= 1000 || Robot.driveTrain.getRightTicks()>= 1000){
+    if (Robot.driveTrain.getLeftTicks() >= 10000 || Robot.driveTrain.getRightTicks()>= 10000){
       return true;
     }
 
