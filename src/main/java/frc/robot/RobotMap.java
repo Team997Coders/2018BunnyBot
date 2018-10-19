@@ -20,7 +20,6 @@ public class RobotMap {
     g1_leftYAxis = 1,
     g1_rightXAxis = 2,
     g1_rightYAxis = 3,
-    g1_rightXAxis = 2,
     
     leftMotorPort = 1,
     rightMotorPort = 0,
@@ -30,21 +29,20 @@ public class RobotMap {
     rightEncoderChannelA = 6,
     rightEncoderChannelB = 7,
 
-    gearPistonFor = 10,
-    gearPistonRev = 11,
+    gearPistonFor = 2,
+    gearPistonRev = 3,
     buttonA = 1,
     
     intakeMotorPort = 3,
     ButtonCircle = 2,
-    ButtonX = 1,
+    ButtonX = 1;
 
    
 
-    //g1_left/rightYAxis are arbitray, so TODO: find actual port values
+    //g1_left/rightYAxis are arbitray, so TODO: maybe find actual port values. Craig is awful at notation so we don't really know.
   }
   public class Values{
-    public static double
-    
+    public static final double
     ticksPerFoot = 7565;
   }
 }

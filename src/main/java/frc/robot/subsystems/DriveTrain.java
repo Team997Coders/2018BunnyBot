@@ -32,6 +32,8 @@ public class DriveTrain extends Subsystem {
     leftEncoder = new Encoder(RobotMap.Ports.leftEncoderChannelA, RobotMap.Ports.leftEncoderChannelB);
     rightEncoder = new Encoder(RobotMap.Ports.rightEncoderChannelA, RobotMap.Ports.rightEncoderChannelB);
     rightEncoder.setReverseDirection(true);
+    leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
     updateSmarts();
   }
@@ -43,15 +45,15 @@ public class DriveTrain extends Subsystem {
     } else {
       shiftSolenoid.set(Value.kReverse);
     }
-    leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
-    rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+    leftEncoder.setDistancePerPulse(7565);
+    rightEncoder.setDistancePerPulse(7565);
     leftEncoder.reset();
     rightEncoder.reset();
   }
 
   public void setVolts(double L, double R) {
-    leftMotor.set(-L/10);
-    rightMotor.set(R/10);
+    leftMotor.set(-L/3);
+    rightMotor.set(R/3);
   }
 
   public void stopVolts() {
@@ -86,6 +88,7 @@ public class DriveTrain extends Subsystem {
   public void UpdateSmartDashboard(){
     SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
-
+    SmartDashboard.putNumber("LeftEncoderRate", leftEncoder.getRate());
+    SmartDashboard.putNumber("RightEncoderRate", rightEncoder.getRate());
   }
 }
