@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
-
+import frc.robot.commands.TurnToAngle;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -27,6 +28,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain;
   public static OI oi;
+  public static BallIntake intake;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -39,13 +41,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     oi = new OI();
     driveTrain = new DriveTrain();
-
+    intake = new BallIntake();
     
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
-
+    
     chooser.addDefault("Default", null);
+    chooser.addObject("Got to 90 degress", new TurnToAngle(90));
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward Nerd", new DriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));

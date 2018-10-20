@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.*;
 import frc.robot.RobotMap;
@@ -23,8 +26,10 @@ public class DriveTrain extends Subsystem {
   private Encoder leftEncoder, rightEncoder;
   public double lastGearNum = 0;
   private DoubleSolenoid shiftSolenoid;
-
+  private AHRS gyro;
   public int gear = 0;
+  public  double initangle;
+  public boolean gyroPresent;
 
   public DriveTrain() {
     leftMotor = new VictorSP(RobotMap.Ports.leftMotorPort);
@@ -34,8 +39,26 @@ public class DriveTrain extends Subsystem {
     rightEncoder.setReverseDirection(true);
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
     updateSmarts();
+    
+    try {
+      gyro = new AHRS(RobotMap.Ports.AHRS);
+    gyro.reset();
+    initangle = gyro.getAngle();
+    gyroPresent = true;
+  }
+  catch(Exception e){
+    e.printStackTrace();
+  }
   }
 
+  public double getAngle(){
+    if (gyroPresent){
+      return gyro.getAngle();
+    }
+    else{
+      return 0.0;
+    }
+  }
 
   public void setGear(double gearNum) {
     if (gearNum == 1 && lastGearNum != 1){
@@ -75,6 +98,7 @@ public class DriveTrain extends Subsystem {
     SmartDashboard.putString("idk", "YEEET");
     SmartDashboard.putNumber("Left Encoder Out",getLeftTicks());
     SmartDashboard.putNumber("Right Encoder Out",getRightTicks());
+    SmartDashboard.putNumber("Gyro",getAngle());
   }
 
   @Override
