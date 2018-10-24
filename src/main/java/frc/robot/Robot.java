@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ADriveForward;
+import frc.robot.commands.AutomaticShifting;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.BallIntake;
 
@@ -134,6 +135,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    driveTrain.automaticShifting();
     UpdateSmartDashboard();
   }
 

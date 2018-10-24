@@ -31,11 +31,11 @@ public class RobotMap {
 
     gearPistonFor = 2,
     gearPistonRev = 3,
-    buttonA = 1,
+    ButtonTriangle = 1,
     
     intakeMotorPort = 3,
     ButtonCircle = 2,
-    ButtonX = 1;
+    ButtonX = 3;
 
    
 

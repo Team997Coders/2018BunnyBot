@@ -9,12 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.DriveTrain;
 
-public class ArcadeDrive extends Command {
-
-  public ArcadeDrive() {
+public class AutomaticShifting extends Command {
+  public AutomaticShifting() {
     requires(Robot.driveTrain);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -23,10 +26,6 @@ public class ArcadeDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double leftVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
-    double rightVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,13 +37,11 @@ public class ArcadeDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.driveTrain.stopVolts();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

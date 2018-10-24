@@ -23,7 +23,9 @@ public class DriveTrain extends Subsystem {
   private Encoder leftEncoder, rightEncoder;
   public double lastGearNum = 0;
   private DoubleSolenoid shiftSolenoid;
-
+  public double leftRate;
+  public double rightRate;
+  //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
   public int gear = 0;
 
   public DriveTrain() {
@@ -42,8 +44,10 @@ public class DriveTrain extends Subsystem {
   public void setGear(double gearNum) {
     if (gearNum == 1 && lastGearNum != 1){
       shiftSolenoid.set(Value.kForward);
+      lastGearNum = 1;
     } else {
       shiftSolenoid.set(Value.kReverse);
+      lastGearNum = 0;
     }
     leftEncoder.setDistancePerPulse(7565);
     rightEncoder.setDistancePerPulse(7565);
@@ -51,9 +55,23 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   }
 
+  public void automaticShifting(){
+    if (getLeftRate() >= 1 && getRightRate() >= 1 && lastGearNum == 0){
+    setGear(1);
+    } else{}
+  }
+
+  public double getLeftRate(){
+    return leftEncoder.getRate();
+  }
+
+  public double getRightRate(){
+    return rightEncoder.getRate();
+  }
+
   public void setVolts(double L, double R) {
-    leftMotor.set(-L/3);
-    rightMotor.set(R/3);
+    leftMotor.set(L/3);
+    rightMotor.set(-R/3);
   }
 
   public void stopVolts() {

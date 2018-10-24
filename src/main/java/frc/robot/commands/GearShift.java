@@ -8,13 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Robot;
 
-public class ArcadeDrive extends Command {
-
-  public ArcadeDrive() {
+public class GearShift extends Command {
+  public GearShift() {
     requires(Robot.driveTrain);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -23,28 +27,29 @@ public class ArcadeDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double leftVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
-    double rightVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    if (Robot.driveTrain.lastGearNum == 1) {
+      Robot.driveTrain.setGear(0);
+    } else {
+      Robot.driveTrain.setGear(1);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // if (Robot.driveTrain.lastGearNum == Robot.driveTrain.currentGearNum){
+    return true;
+    // }
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
-    Robot.driveTrain.stopVolts();
-  }
+  protected void end() { }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() { 
     end();
   }
 }
