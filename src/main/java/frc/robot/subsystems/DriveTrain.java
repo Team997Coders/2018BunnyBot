@@ -77,6 +77,11 @@ public class DriveTrain extends Subsystem {
     leftMotor.set(0);
     rightMotor.set(0);
   }
+  
+public int GetAverageTicks() {
+  return (leftEncoder.get() + rightEncoder.get())/2;
+  
+}
 
   public int getLeftTicks() { 
     return leftEncoder.get(); 

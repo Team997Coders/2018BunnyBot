@@ -7,8 +7,10 @@
 
 package frc.robot;
 
+import frc.robot.commands.PDriveToDistance;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.PDriveToAngle;
 import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -47,12 +49,16 @@ public class Robot extends TimedRobot {
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     
+
     chooser.addDefault("Default", null);
+    chooser.addObject("Go to Angle P", new PDriveToAngle(90));
+    chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
     chooser.addObject("Got to 90 degress", new TurnToAngle(90));
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward Nerd", new DriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
     SmartDashboard.putData("Auto commands", chooser);
+
   }
 
   /**
