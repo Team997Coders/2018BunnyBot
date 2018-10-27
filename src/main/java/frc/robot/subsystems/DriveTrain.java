@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.*;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class DriveTrain extends Subsystem {
@@ -45,9 +46,11 @@ public class DriveTrain extends Subsystem {
     if (gearNum == 1 && lastGearNum != 1){
       shiftSolenoid.set(Value.kForward);
       lastGearNum = 1;
+      System.out.println(lastGearNum);
     } else {
       shiftSolenoid.set(Value.kReverse);
       lastGearNum = 0;
+      System.out.println(lastGearNum);
     }
     leftEncoder.setDistancePerPulse(7565);
     rightEncoder.setDistancePerPulse(7565);
@@ -56,22 +59,24 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftRate() >= 1 && getRightRate() >= 1 && lastGearNum == 0){
-    setGear(1);
+    if (getLeftRate() < 20 || getRightRate() < 20){
+      if (getLeftRate() >= 2 && getRightRate() >= 2 && lastGearNum == 0 && Robot.oi.getLeftYAxis() >= 1){
+      setGear(1);
+    } else{}
     } else{}
   }
 
   public double getLeftRate(){
-    return leftEncoder.getRate();
+    return Math.abs(leftEncoder.getRate());
   }
 
   public double getRightRate(){
-    return rightEncoder.getRate();
+    return Math.abs(rightEncoder.getRate());
   }
 
   public void setVolts(double L, double R) {
-    leftMotor.set(L/3);
-    rightMotor.set(-R/3);
+    leftMotor.set(-L/2);
+    rightMotor.set(R/2);
   }
 
   public void stopVolts() {
@@ -108,5 +113,6 @@ public class DriveTrain extends Subsystem {
     SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
     SmartDashboard.putNumber("LeftEncoderRate", leftEncoder.getRate());
     SmartDashboard.putNumber("RightEncoderRate", rightEncoder.getRate());
+    SmartDashboard.putNumber("Gear", lastGearNum);
   }
 }

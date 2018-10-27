@@ -37,9 +37,6 @@ public class RobotMap {
     ButtonCircle = 2,
     ButtonX = 3;
 
-   
-
-    //g1_left/rightYAxis are arbitray, so TODO: maybe find actual port values. Craig is awful at notation so we don't really know.
   }
   public class Values{
     public static final double
