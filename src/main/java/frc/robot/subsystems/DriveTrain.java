@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
     initangle = gyro.getAngle();
     gyroPresent = true;
   }
-  catch(Exception e){
+  catch(RuntimeException e){
     e.printStackTrace();
   }
   }

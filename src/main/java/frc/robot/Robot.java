@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.SimpleAuto;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -51,14 +52,15 @@ public class Robot extends TimedRobot {
     
 
     chooser.addDefault("Default", null);
-    chooser.addObject("Go to Angle P", new PDriveToAngle(90));
+    chooser.addObject("Go to Angle P", new PDriveToAngle(-90));
     chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
     chooser.addObject("Got to 90 degress", new TurnToAngle(90));
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward Nerd", new DriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
     SmartDashboard.putData("Auto commands", chooser);
-
+    SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
+    chooser.addObject("Simple Auto", new SimpleAuto());
   }
 
   /**
