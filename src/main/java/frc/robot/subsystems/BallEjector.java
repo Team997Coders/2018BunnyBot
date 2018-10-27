@@ -23,7 +23,7 @@ public class BallEjector extends Subsystem {
  public BallEjector(){
   // TODO: need to input the motor controller (not avalible as of 5:52 pm 10/19/2018)
   // TODO: assign correct port information for the ballEjectorMotor in RobotMap.java
-  ballEjectorMotor = new VictorSP(RobotMap.Ports.ballEjectorMotor)
+  ballEjectorMotor = new VictorSP(RobotMap.Ports.ballEjectorMotor);
   }
   public void setVolts(double B){
     if(B < 0){
@@ -33,7 +33,7 @@ public class BallEjector extends Subsystem {
     }
   }
   public void stopVolts(){
-    ballEjectorMotor.set(0)
+    ballEjectorMotor.set(0);
   }
   @Override
   public void initDefaultCommand() {
