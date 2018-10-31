@@ -22,7 +22,7 @@ public class DriveTrain extends Subsystem {
 
   private VictorSP leftMotor, rightMotor;
   private Encoder leftEncoder, rightEncoder;
-  public double lastGearNum = 0;
+  public double lastGearNum;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
   public double rightRate;
@@ -30,6 +30,7 @@ public class DriveTrain extends Subsystem {
   public int gear = 0;
 
   public DriveTrain() {
+    lastGearNum = 0;
     leftMotor = new VictorSP(RobotMap.Ports.leftMotorPort);
     rightMotor = new VictorSP(RobotMap.Ports.rightMotorPort);
     leftEncoder = new Encoder(RobotMap.Ports.leftEncoderChannelA, RobotMap.Ports.leftEncoderChannelB);
@@ -43,13 +44,13 @@ public class DriveTrain extends Subsystem {
 
 
   public void setGear(double gearNum) {
-    if (gearNum == 1 && lastGearNum != 1){
+    if (gearNum == 0 && lastGearNum != 0){
       shiftSolenoid.set(Value.kForward);
-      lastGearNum = 1;
+      lastGearNum = 0;
       System.out.println(lastGearNum);
     } else {
       shiftSolenoid.set(Value.kReverse);
-      lastGearNum = 0;
+      lastGearNum = 1;
       System.out.println(lastGearNum);
     }
     leftEncoder.setDistancePerPulse(7565);
@@ -58,21 +59,29 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   }
 
-  public void automaticShifting(){
-    if (getLeftRate() < 20 || getRightRate() < 20){
-      if (getLeftRate() >= 2 && getRightRate() >= 2 && lastGearNum == 0 && Robot.oi.getLeftYAxis() >= 1){
-      setGear(1);
-    } else{}
-    } else{}
-  }
-
   public double getLeftRate(){
-    return Math.abs(leftEncoder.getRate());
+    if (Math.abs(leftEncoder.getRate()) < 10){
+      return 0;
+    }else{
+      System.out.println(Math.abs(leftEncoder.getRate()));
+      return Math.abs(leftEncoder.getRate());/*Robot.oi.getLeftYAxis())*/
+    }
   }
 
   public double getRightRate(){
-    return Math.abs(rightEncoder.getRate());
+    if (Math.abs(rightEncoder.getRate()) < 10){
+      return 0;
+    }else{
+      return Math.abs(rightEncoder.getRate()/**Robot.oi.getLeftYAxis()*/);
+    }
   }
+
+  public void automaticShifting(){
+    if (getLeftRate() >= 1.5 && getRightRate() >= 1.5 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
+    setGear(1);
+    lastGearNum = 1;
+  } else{}
+}
 
   public void setVolts(double L, double R) {
     leftMotor.set(-L/2);
@@ -111,8 +120,8 @@ public class DriveTrain extends Subsystem {
   public void UpdateSmartDashboard(){
     SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
-    SmartDashboard.putNumber("LeftEncoderRate", leftEncoder.getRate());
-    SmartDashboard.putNumber("RightEncoderRate", rightEncoder.getRate());
+    SmartDashboard.putNumber("LeftEncoderRate", getLeftRate());
+    SmartDashboard.putNumber("RightEncoderRate", getRightRate());
     SmartDashboard.putNumber("Gear", lastGearNum);
   }
 }
