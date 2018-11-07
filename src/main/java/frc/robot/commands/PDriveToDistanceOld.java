@@ -1,6 +1,9 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* mu/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
@@ -9,17 +12,14 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.RobotMap;
 
-public class PDriveToDistance extends Command {
+public class PDriveToDistanceOld extends Command {
   private double Error;
-  private double  initYaw = Robot.driveTrain.getAngle();
-  public PDriveToDistance(double error) {
+  public PDriveToDistanceOld(double error) {
     requires(Robot.driveTrain);
     Error = error;
-    
   
     
     // Use requires() here to declare subsystem dependencies
@@ -30,17 +30,12 @@ public class PDriveToDistance extends Command {
   @Override
   protected void initialize() { 
     Robot.driveTrain.resetTicks();
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("RealInitYaw", initYaw);
     Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
-    if ((Robot.driveTrain.getAngle()) < (initYaw-Error)){
-      Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
