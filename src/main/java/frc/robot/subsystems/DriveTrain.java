@@ -60,16 +60,16 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getLeftRate(){
-    if (Math.abs(leftEncoder.getRate()) < 10){
+    if ((leftEncoder.getRate()/(10*RobotMap.Values.ticksPerFoot)) > 100){
+      System.out.println(leftEncoder.getRate());
       return 0;
     }else{
-      System.out.println(Math.abs(leftEncoder.getRate()));
       return Math.abs(leftEncoder.getRate());/*Robot.oi.getLeftYAxis())*/
     }
   }
 
   public double getRightRate(){
-    if (Math.abs(rightEncoder.getRate()) < 10){
+    if ((rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot*10)) > 100){
       return 0;
     }else{
       return Math.abs(rightEncoder.getRate()/**Robot.oi.getLeftYAxis()*/);
@@ -77,7 +77,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftRate() >= 1.5 && getRightRate() >= 1.5 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
+    if (getLeftRate() >= 6 && getRightRate() >= 6 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
     setGear(1);
     lastGearNum = 1;
   } else{}

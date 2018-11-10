@@ -24,8 +24,8 @@ public class ArcadeDrive extends Command {
   @Override
   protected void execute() {
 
-    double leftVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
-    double rightVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
+    double leftVolts = (Robot.oi.getLeftYAxis()) - (Robot.oi.getRightXAxis());
+    double rightVolts = (Robot.oi.getLeftYAxis()) + (Robot.oi.getRightXAxis());
     Robot.driveTrain.setVolts(leftVolts, rightVolts);
   }
 
