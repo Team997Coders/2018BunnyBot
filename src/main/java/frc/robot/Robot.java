@@ -21,6 +21,7 @@ import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
+import frc.robot.commands.AutoDefaultCommand;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto commands", chooser);
     SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
     chooser.addObject("Simple Auto", new SimpleAuto());
+  
   }
 
   /**

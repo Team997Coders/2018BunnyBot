@@ -7,48 +7,27 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.RobotMap;
 
-public class PDriveToDistance extends Command {
-  private double Error;
-  private double  initYaw = Robot.driveTrain.getAngle();
-  public PDriveToDistance(double error) {
-    requires(Robot.driveTrain);
-    Error = error;
-    
-  
-    
+public class AutoDefaultCommand extends Command {
+  public AutoDefaultCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { 
-    Robot.driveTrain.resetTicks();
-    
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("RealInitYaw", initYaw);
-    Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
-    if ((Robot.driveTrain.getAngle()) < (initYaw-Error)){
-      Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Math.abs(Error-Robot.driveTrain.GetAverageTicks()) <= 75){
-    return true;
-    }
     return false;
   }
 

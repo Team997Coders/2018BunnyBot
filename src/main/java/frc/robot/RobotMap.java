@@ -42,7 +42,9 @@ public class RobotMap {
   public class Values {
     public static final double  
       ticksPerFoot = 7565,
-      DriveP = 0;
-      //.00002; 
+      DriveP = .00005,
+      DriveAngleP = .01,
+      DriveToDistanceMargin = 50;
+      ////////////////.00002; 
   }
 }

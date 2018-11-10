@@ -18,8 +18,10 @@ public class SimpleAuto extends CommandGroup {
    */
   public SimpleAuto() {
     addSequential(new PDriveToDistance(3 * RobotMap.Values.ticksPerFoot));
+    System.out.println("Done with going forward");
     addSequential(new PDriveToAngle(180));
     addSequential(new PDriveToDistance(3 * RobotMap.Values.ticksPerFoot));
+    System.out.println("Done with simple auto routine");
     // Add Commands here:t
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

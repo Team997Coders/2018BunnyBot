@@ -36,13 +36,13 @@ private double error = .5;
   @Override
   protected void execute() {
     /*if (((((((((SetPoint >= Robot.driveTrain.getAngle() - initYaw))))))))){
-      Robot.driveTrain.setVolts((RobotMap.Values.DriveP * PidError()) , (-RobotMap.Values.DriveP * PidError()));
+      Robot.driveTrain.setVolts((RobotMap.Values.DriveAngleP * PidError()) , (-RobotMap.Values.DriveAngleP * PidError()));
     } 
     else if (SetPoint <= Robot.driveTrain.getAngle() - initYaw){
-      Robot.driveTrain.setVolts((RobotMap.Values.DriveP * PidError()), (-RobotMap.Values.DriveP * PidError()));
+      Robot.driveTrain.setVolts((RobotMap.Values.DriveAngleP * PidError()), (-RobotMap.Values.DriveAngleP * PidError()));
       
     }*/
-    Robot.driveTrain.setVolts((RobotMap.Values.DriveP * PidError()) , (-RobotMap.Values.DriveP * PidError()));
+    Robot.driveTrain.setVolts((RobotMap.Values.DriveAngleP * PidError()) , (-RobotMap.Values.DriveAngleP * PidError()));
     SmartDashboard.putNumber("Angle Error", PidError());
 
   }
