@@ -56,7 +56,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftRate() >= 1 && getRightRate() >= 1 && lastGearNum == 0){
+    if (getRightRate() > 1 && getLeftRate() > 1 && lastGearNum == 0){
     setGear(1);
     } else{}
   }
@@ -92,9 +92,6 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   
   }
-
-
-
   public void updateSmarts() {
     SmartDashboard.putString("idk", "YEEET");
   }
