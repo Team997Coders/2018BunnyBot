@@ -53,26 +53,27 @@ public class DriveTrain extends Subsystem {
       lastGearNum = 1;
       System.out.println(lastGearNum);
     }
-    leftEncoder.setDistancePerPulse(7565);
-    rightEncoder.setDistancePerPulse(7565);
+    leftEncoder.setDistancePerPulse(1/7565);
+    rightEncoder.setDistancePerPulse(1/7565);
     leftEncoder.reset();
     rightEncoder.reset();
   }
 
   public double getLeftRate(){
-    if ((leftEncoder.getRate()/(10*RobotMap.Values.ticksPerFoot)) > 100){
+    if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20){
+        return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())*/
+    }else{
       System.out.println(leftEncoder.getRate());
       return 0;
-    }else{
-      return Math.abs(leftEncoder.getRate());/*Robot.oi.getLeftYAxis())*/
     }
   }
 
   public double getRightRate(){
-    if ((rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot*10)) > 100){
-      return 0;
+    if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20){
+        return rightEncoder.getRate();/*Robot.oi.getRightYAxis())*/
     }else{
-      return Math.abs(rightEncoder.getRate()/**Robot.oi.getLeftYAxis()*/);
+      System.out.println(rightEncoder.getRate());
+      return 0;
     }
   }
 
