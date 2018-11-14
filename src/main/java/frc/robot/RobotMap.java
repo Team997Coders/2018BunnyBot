@@ -18,8 +18,8 @@ public class RobotMap {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
-    g1_rightXAxis = 2,
-    g1_rightYAxis = 3,
+    g1_rightXAxis = 4,
+    g1_rightYAxis = 5,
     
     leftMotorPort = 1,
     rightMotorPort = 0,
@@ -31,15 +31,12 @@ public class RobotMap {
 
     gearPistonFor = 2,
     gearPistonRev = 3,
-    ButtonTriangle = 1,
+    ButtonY = 3,
     
     intakeMotorPort = 3,
-    ButtonCircle = 2,
-    ButtonX = 3;
+    ButtonB = 1,
+    ButtonX = 2;
 
-   
-
-    //g1_left/rightYAxis are arbitray, so TODO: maybe find actual port values. Craig is awful at notation so we don't really know.
   }
   public class Values{
     public static final double
