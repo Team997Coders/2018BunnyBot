@@ -40,6 +40,6 @@ public class RobotMap {
   }
   public class Values{
     public static final double
-    ticksPerFoot = 7565;
+    ticksPerFoot = 1/7565;
   }
 }

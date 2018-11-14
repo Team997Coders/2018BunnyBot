@@ -39,9 +39,7 @@ public class DriveTrain extends Subsystem {
     leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
     rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
-    updateSmarts();
   }
-
 
   public void setGear(double gearNum) {
     if (gearNum == 0 && lastGearNum != 0){
@@ -53,27 +51,16 @@ public class DriveTrain extends Subsystem {
       lastGearNum = 1;
       System.out.println(lastGearNum);
     }
-    leftEncoder.setDistancePerPulse(7565);
-    rightEncoder.setDistancePerPulse(7565);
-    leftEncoder.reset();
-    rightEncoder.reset();
   }
 
   public double getLeftRate(){
-    if (Math.abs(leftEncoder.getRate()) < 10){
-      return 0;
-    }else{
-      System.out.println(Math.abs(leftEncoder.getRate()));
-      return Math.abs(leftEncoder.getRate());/*Robot.oi.getLeftYAxis())*/
-    }
+    System.out.println(Math.abs(leftEncoder.getRate()));
+    return Math.abs(leftEncoder.getRate());
   }
 
   public double getRightRate(){
-    if (Math.abs(rightEncoder.getRate()) < 10){
-      return 0;
-    }else{
-      return Math.abs(rightEncoder.getRate()/**Robot.oi.getLeftYAxis()*/);
-    }
+    System.out.println(Math.abs(rightEncoder.getRate()));
+    return Math.abs(rightEncoder.getRate());
   }
 
   public void automaticShifting(){
@@ -86,6 +73,7 @@ public class DriveTrain extends Subsystem {
   public void setVolts(double L, double R) {
     leftMotor.set(-L/2);
     rightMotor.set(R/2);
+    //TODO: Remove the /2 line when we are done testing
   }
 
   public void stopVolts() {
@@ -104,13 +92,6 @@ public class DriveTrain extends Subsystem {
   public void resetTicks() {
     leftEncoder.reset();
     rightEncoder.reset();
-  
-  }
-
-
-
-  public void updateSmarts() {
-    SmartDashboard.putString("idk", "YEEET");
   }
 
   @Override
