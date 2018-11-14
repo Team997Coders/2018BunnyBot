@@ -59,6 +59,12 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   }
 
+  public void automaticShifting(){
+    if (getRightRate() > 1 && getLeftRate() > 1 && lastGearNum == 0){
+    setGear(1);
+    } else{}
+  }
+
   public double getLeftRate(){
     if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20){
         return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())*/
@@ -107,9 +113,6 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   
   }
-
-
-
   public void updateSmarts() {
     SmartDashboard.putString("idk", "YEEET");
   }
