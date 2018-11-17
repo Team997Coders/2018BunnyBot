@@ -59,14 +59,8 @@ public class DriveTrain extends Subsystem {
     rightEncoder.reset();
   }
 
-  public void automaticShifting(){
-    if (getRightRate() > 1 && getLeftRate() > 1 && lastGearNum == 0){
-    setGear(1);
-    } else{}
-  }
-
-  public double getLeftRate(){
-    if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20){
+  public double getLeftRate() {
+    if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
         return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())*/
     }else{
       System.out.println(leftEncoder.getRate());
@@ -74,8 +68,8 @@ public class DriveTrain extends Subsystem {
     }
   }
 
-  public double getRightRate(){
-    if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20){
+  public double getRightRate() {
+    if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
         return rightEncoder.getRate();/*Robot.oi.getRightYAxis())*/
     }else{
       System.out.println(rightEncoder.getRate());
@@ -121,7 +115,8 @@ public class DriveTrain extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive());
   }
-  public void UpdateSmartDashboard(){
+
+  public void updateSmartDashboard() {
     SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
     SmartDashboard.putNumber("LeftEncoderRate", getLeftRate());
