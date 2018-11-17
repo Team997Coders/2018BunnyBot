@@ -13,31 +13,110 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.*;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveTrain extends Subsystem {
-
-  private VictorSP leftMotor, rightMotor;
+ 
+  private TalonSRX leftTalon, rightTalon;
   private Encoder leftEncoder, rightEncoder;
   public double lastGearNum;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
   public double rightRate;
+	//temp
+  private VictorSPX leftVictor1, leftVictor2;
+	private VictorSPX rightVictor1, rightVictor2;
+
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
   public int gear = 0;
 
   public DriveTrain() {
     lastGearNum = 0;
-    leftMotor = new VictorSP(RobotMap.Ports.leftMotorPort);
-    rightMotor = new VictorSP(RobotMap.Ports.rightMotorPort);
-    leftEncoder = new Encoder(RobotMap.Ports.leftEncoderChannelA, RobotMap.Ports.leftEncoderChannelB);
-    rightEncoder = new Encoder(RobotMap.Ports.rightEncoderChannelA, RobotMap.Ports.rightEncoderChannelB);
-    rightEncoder.setReverseDirection(true);
-    leftEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
-    rightEncoder.setDistancePerPulse(RobotMap.Values.ticksPerFoot);
+
+    leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
+    rightTalon = new TalonSRX(RobotMap.Ports.rightTalonPort);
+    leftVictor1 = new VictorSPX(RobotMap.Ports.leftVictor1Port);
+    leftVictor2 = new VictorSPX(RobotMap.Ports.leftVictor2Port);
+    rightVictor1 = new VictorSPX(RobotMap.Ports.rightVictor1Port);
+    rightVictor2 = new VictorSPX(RobotMap.Ports.rightVictor2Port);
+
+    leftVictor1.follow(leftTalon);
+    leftVictor2.follow(leftTalon);
+    rightVictor1.follow(rightTalon);
+    rightVictor2.follow(rightTalon);
+
+    leftTalon.setInverted(false);
+    rightTalon.setInverted(true);
+
+    leftVictor1.setInverted(false);
+    leftVictor2.setInverted(false);
+    rightVictor1.setInverted(true);
+    rightVictor2.setInverted(true);
+
+    leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		leftTalon.setSensorPhase(true);
+		rightTalon.setSensorPhase(true);
+		
+		leftTalon.setNeutralMode(NeutralMode.Coast);
+		rightTalon.setNeutralMode(NeutralMode.Coast);
+		
+		/* set the peak, nominal outputs */
+		leftTalon.configNominalOutputForward(0, 10);
+		leftTalon.configNominalOutputReverse(0, 10);
+		//leftTalon.configPeakOutputForward(1, 10);	//Use for PB
+		//leftTalon.configPeakOutputReverse(-1, 10); //Use for PB
+		leftTalon.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
+		leftTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		
+		leftTalon.enableCurrentLimit(true);
+		leftTalon.configPeakCurrentLimit(40, 10);
+		leftTalon.configPeakCurrentDuration(100, 10);
+		leftTalon.configContinuousCurrentLimit(30, 10);
+		
+		rightTalon.configNominalOutputForward(0, 10);
+		rightTalon.configNominalOutputReverse(0, 10);
+		//rightTalon.configPeakOutputForward(1, 10); //Use for PB
+		//rightTalon.configPeakOutputReverse(-1, 10); //Use for PB
+		rightTalon.configPeakOutputForward(0.6, 10);  //Use for extrasensitive CB
+		rightTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		
+		rightTalon.enableCurrentLimit(true);
+		rightTalon.configPeakCurrentLimit(40, 10);
+		rightTalon.configPeakCurrentDuration(100, 10);
+		rightTalon.configContinuousCurrentLimit(30, 10);
+		
+		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//leftTalon.configOpenloopRamp(0.25, 10);
+		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//rightTalon.configOpenloopRamp(0.25, 10);
+		
+		/* set closed loop gains in slot0 */
+		leftTalon.config_kF(0, 0.1097, 10);
+		leftTalon.config_kP(0, 0.113333, 10);
+		leftTalon.config_kI(0, 0, 10);
+		leftTalon.config_kD(0, 0, 10);		
+
+		rightTalon.config_kF(0, 0.1097, 10);
+		rightTalon.config_kP(0, 0.113333, 10);
+		rightTalon.config_kI(0, 0, 10);
+		rightTalon.config_kD(0, 0, 10);	
+		
+		new SensorCollection(leftTalon);
+		new SensorCollection(rightTalon);
+
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
     updateSmarts();
   }
@@ -57,12 +136,6 @@ public class DriveTrain extends Subsystem {
     rightEncoder.setDistancePerPulse(1/7565);
     leftEncoder.reset();
     rightEncoder.reset();
-  }
-
-  public void automaticShifting(){
-    if (getRightRate() > 1 && getLeftRate() > 1 && lastGearNum == 0){
-    setGear(1);
-    } else{}
   }
 
   public double getLeftRate(){
@@ -90,14 +163,13 @@ public class DriveTrain extends Subsystem {
   } else{}
 }
 
-  public void setVolts(double L, double R) {
-    leftMotor.set(-L/2);
-    rightMotor.set(R/2);
+  public void setVolts(double leftSpeed, double rightSpeed) {
+    leftTalon.set(ControlMode.PercentOutput, leftSpeed);
+    rightTalon.set(ControlMode.PercentOutput, rightSpeed);
   }
-
   public void stopVolts() {
-    leftMotor.set(0);
-    rightMotor.set(0);
+    leftTalon.set(ControlMode.PercentOutput, 0);
+    rightTalon.set(ControlMode.PercentOutput, 0);
   }
 
   public int getLeftTicks() { 

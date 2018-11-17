@@ -18,15 +18,15 @@ public class OI {
 
   Joystick gamepad1;
   JoystickButton collect;
-  JoystickButton uncollect;
+  JoystickButton eject;
   // JoystickButton shift;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
     collect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonB);
-    collect.whileHeld(new CollectBalls(1));
-    uncollect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
-    uncollect.whileHeld(new UnCollectBalls(1));
+    collect.whileHeld(new CollectBalls());
+    eject = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
+    eject.whileHeld(new EjectBalls());
     JoystickButton shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
     shift.whenPressed(new GearShift());
   }

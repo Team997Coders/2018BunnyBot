@@ -21,8 +21,13 @@ public class RobotMap {
     g1_rightXAxis = 4,
     g1_rightYAxis = 5,
     
-    leftMotorPort = 1,
-    rightMotorPort = 0,
+    leftTalonPort = 9,
+    rightTalonPort =10,
+
+    leftVictor1Port = 1,
+    leftVictor2Port = 2,
+    rightVictor1Port = 3,
+    rightVictor2Port = 4,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
@@ -33,7 +38,8 @@ public class RobotMap {
     gearPistonRev = 3,
     ButtonY = 3,
     
-    intakeMotorPort = 3,
+    intakeMotorPort = 7,
+    outtakeMotorPort = 8,
     ButtonB = 1,
     ButtonX = 2;
 
