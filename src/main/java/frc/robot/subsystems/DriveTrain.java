@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
  
   private TalonSRX leftTalon, rightTalon;
   private Encoder leftEncoder, rightEncoder;
-  public double lastGearNum;
+  public boolean lastGearState;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
   public double rightRate;
@@ -122,20 +122,17 @@ public class DriveTrain extends Subsystem {
   }
 
 
-  public void setGear(double gearNum) {
-    if (gearNum == 0 && lastGearNum != 0){
-      shiftSolenoid.set(Value.kForward);
-      lastGearNum = 0;
-      System.out.println(lastGearNum);
-    } else {
-      shiftSolenoid.set(Value.kReverse);
-      lastGearNum = 1;
-      System.out.println(lastGearNum);
+  public void setGear(boolean gearState) {
+    if (lastGearNum != gearState){
+      if (gearState) {
+        shiftSolenoid.set(Value.kForward);
+      } else {
+        shiftSolenoid.set(Value.kReverse);
+      }
+
+      lastGearState = gearState;
+      System.out.println(lastGearState);
     }
-    leftEncoder.setDistancePerPulse(1/7565);
-    rightEncoder.setDistancePerPulse(1/7565);
-    leftEncoder.reset();
-    rightEncoder.reset();
   }
 
   public double getLeftRate() {
