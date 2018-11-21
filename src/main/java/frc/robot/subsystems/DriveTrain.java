@@ -30,7 +30,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class DriveTrain extends Subsystem {
  
   private TalonSRX leftTalon, rightTalon;
-  private Encoder leftEncoder, rightEncoder;
   public double lastGearNum;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
@@ -81,11 +80,11 @@ public class DriveTrain extends Subsystem {
 		leftTalon.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
 		leftTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
 		
-		leftTalon.enableCurrentLimit(true);
 		leftTalon.configPeakCurrentLimit(40, 10);
 		leftTalon.configPeakCurrentDuration(100, 10);
 		leftTalon.configContinuousCurrentLimit(30, 10);
-		
+    leftTalon.enableCurrentLimit(true);
+    
 		rightTalon.configNominalOutputForward(0, 10);
 		rightTalon.configNominalOutputReverse(0, 10);
 		//rightTalon.configPeakOutputForward(1, 10); //Use for PB
@@ -93,11 +92,11 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configPeakOutputForward(0.6, 10);  //Use for extrasensitive CB
 		rightTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
 		
-		rightTalon.enableCurrentLimit(true);
 		rightTalon.configPeakCurrentLimit(40, 10);
-		rightTalon.configPeakCurrentDuration(100, 10);
+    rightTalon.configPeakCurrentDuration(100, 10);
 		rightTalon.configContinuousCurrentLimit(30, 10);
-		
+    rightTalon.enableCurrentLimit(true);
+    
 		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
 		//leftTalon.configOpenloopRamp(0.25, 10);
 		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
@@ -139,21 +138,11 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getLeftRate() {
-    if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
-        return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())*/
-    }else{
-      System.out.println(leftEncoder.getRate());
-      return 0;
-    }
+    return leftTalon.getSelectedSensorVelocity(0);
   }
 
   public double getRightRate() {
-    if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
-        return rightEncoder.getRate();/*Robot.oi.getRightYAxis())*/
-    }else{
-      System.out.println(rightEncoder.getRate());
-      return 0;
-    }
+    return rightTalon.getSelectedSensorVelocity(0);
   }
 
   public void automaticShifting(){
