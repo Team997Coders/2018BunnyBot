@@ -18,7 +18,7 @@ public class PDriveToDistance extends Command {
   private double  initYaw = Robot.driveTrain.getAngle();
   public PDriveToDistance(double error) {
     requires(Robot.driveTrain);
-    Error = error;l
+    Error = error;
     
   
     
