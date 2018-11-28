@@ -16,7 +16,7 @@ public class CollectBalls extends Command {
   public CollectBalls() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.BallIntake); 
+    requires(Robot.intake); 
   }
 
   // Called just before this Command runs the first time
