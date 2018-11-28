@@ -16,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.*;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -147,13 +148,12 @@ public class DriveTrain extends Subsystem {
 		return rightTalon.getSelectedSensorPosition(0);
   }
 
-  /*public void automaticShifting(){
-    if (getLeftRate() >= 6 && getRightRate() >= 6 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
-    setGear(1);
-    lastGearNum = 1;
-    } else{}
-  }*/
-
+  public void automaticShifting(){
+    if (getLeftEncoderRate() >= 6 && getRightEncoderRate() >= 6 && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+      setGear(true);
+      lastGearState = true;
+    } else {}
+  }
   public void setVolts(double leftSpeed, double rightSpeed) {
     leftTalon.set(ControlMode.PercentOutput, leftSpeed);
     rightTalon.set(ControlMode.PercentOutput, rightSpeed);
