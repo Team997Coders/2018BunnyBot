@@ -42,10 +42,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    oi = new OI();
     driveTrain = new DriveTrain();
     intake = new BallIntake();
-    
+    oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
@@ -73,7 +72,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    driveTrain.updateSmarts();
   }
 
   /**

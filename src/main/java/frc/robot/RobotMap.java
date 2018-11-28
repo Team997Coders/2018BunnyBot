@@ -7,6 +7,7 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.SerialPort;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,15 +15,20 @@ import edu.wpi.first.wpilibj.SerialPort;
  * floating around.
  */
 public class RobotMap {
-  public static class Ports {
+  public class Ports {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
-    g1_rightYAxis = 3,
-    g1_rightXAxis = 2,
+    g1_rightXAxis = 4,
+    g1_rightYAxis = 5,
     
-    leftMotorPort = 1,
-    rightMotorPort = 0,
+    leftTalonPort = 9,
+    rightTalonPort =10,
+
+    leftVictor1Port = 1,
+    leftVictor2Port = 2,
+    rightVictor1Port = 3,
+    rightVictor2Port = 4,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
@@ -31,18 +37,19 @@ public class RobotMap {
 
     gearPistonFor = 2,
     gearPistonRev = 3,
-    buttonA = 2,
-
-    intakeMotorPort = 3,
-    ButtonCircle = 2,
-    ButtonX = 1;
-    public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
+    ButtonY = 3,
+    
+    intakeMotorPort = 7,
+    outtakeMotorPort = 8,
+    ButtonB = 1,
+    ButtonX = 2;
+    public final SerialPort.Port AHRS = SerialPort.Port.kUSB;
 
   }
-  public class Values {
-    public static final double  
-      ticksPerFoot = 7565,
-      DriveP = 0;
+  public class Values{
+    public static final double
+    ticksPerFoot = 1/7565,
+    DriveP = 0;
       //.00002; 
   }
 }
