@@ -185,7 +185,7 @@ public class DriveTrain extends Subsystem {
   
   }
   public void updateSmarts() {
-    SmartDashboard.putString("idk", "YEEET");
+    SmartDashboard.putString(,);
   }
 
   @Override
