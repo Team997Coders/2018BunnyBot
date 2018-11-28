@@ -30,7 +30,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class DriveTrain extends Subsystem {
  
   private TalonSRX leftTalon, rightTalon;
-  public double lastGearNum;
+  //private Encoder leftEncoder, rightEncoder;
+  public boolean lastGearState;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
   public double rightRate;
@@ -39,10 +40,9 @@ public class DriveTrain extends Subsystem {
 	private VictorSPX rightVictor1, rightVictor2;
 
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
-  public int gear = 0;
 
   public DriveTrain() {
-    lastGearNum = 0;
+    lastGearState = false;
 
     leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
     rightTalon = new TalonSRX(RobotMap.Ports.rightTalonPort);
@@ -120,37 +120,47 @@ public class DriveTrain extends Subsystem {
     updateSmarts();
   }
 
+  public void setGear(boolean gearState) {
+    if (lastGearState != gearState){
+      if (gearState) {
+        shiftSolenoid.set(Value.kReverse);
+      } else {
+        shiftSolenoid.set(Value.kForward);
+      }
 
-  public void setGear(double gearNum) {
-    if (gearNum == 0 && lastGearNum != 0){
-      shiftSolenoid.set(Value.kForward);
-      lastGearNum = 0;
-      System.out.println(lastGearNum);
-    } else {
-      shiftSolenoid.set(Value.kReverse);
-      lastGearNum = 1;
-      System.out.println(lastGearNum);
+      lastGearState = gearState;
+      System.out.println(lastGearState);
     }
-    leftEncoder.setDistancePerPulse(1/7565);
-    rightEncoder.setDistancePerPulse(1/7565);
-    leftEncoder.reset();
-    rightEncoder.reset();
   }
 
   public double getLeftRate() {
-    return leftTalon.getSelectedSensorVelocity(0);
+    /*if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
+        return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())
+    }else{
+      System.out.println(leftEncoder.getRate());
+      return 0;
+    }*/
+
+    return 0;
   }
 
   public double getRightRate() {
-    return rightTalon.getSelectedSensorVelocity(0);
+    /*if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
+        return rightEncoder.getRate();/*Robot.oi.getRightYAxis())
+    }else{
+      System.out.println(rightEncoder.getRate());
+      return 0;
+    }*/
+
+    return 0;
   }
 
-  public void automaticShifting(){
+  /*public void automaticShifting(){
     if (getLeftRate() >= 6 && getRightRate() >= 6 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
     setGear(1);
     lastGearNum = 1;
-  } else{}
-}
+    } else{}
+  }*/
 
   public void setVolts(double leftSpeed, double rightSpeed) {
     leftTalon.set(ControlMode.PercentOutput, leftSpeed);
@@ -162,16 +172,16 @@ public class DriveTrain extends Subsystem {
   }
 
   public int getLeftTicks() { 
-    return leftEncoder.get(); 
+    return 0; //leftEncoder.get(); 
   }
 
   public int getRightTicks() { 
-    return rightEncoder.get(); 
+    return 0; //rightEncoder.get(); 
   }
   
   public void resetTicks() {
-    leftEncoder.reset();
-    rightEncoder.reset();
+    //leftEncoder.reset();
+    //rightEncoder.reset();
   
   }
   public void updateSmarts() {
@@ -184,10 +194,10 @@ public class DriveTrain extends Subsystem {
   }
 
   public void updateSmartDashboard() {
-    SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
-    SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
+    //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
+    //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
     SmartDashboard.putNumber("LeftEncoderRate", getLeftRate());
     SmartDashboard.putNumber("RightEncoderRate", getRightRate());
-    SmartDashboard.putNumber("Gear", lastGearNum);
+    SmartDashboard.putBoolean("Gear", lastGearState);
   }
 }
