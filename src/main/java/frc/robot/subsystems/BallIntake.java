@@ -22,11 +22,16 @@ public class BallIntake extends Subsystem {
     intakeMotor = new VictorSP(RobotMap.Ports.intakeMotorPort); 
   }
     
-public void collect(double volts){
-  intakeMotor.set(volts);
+public void collect(){
+  intakeMotor.set(1);
 }
-public void uncollect(double volts){
-  intakeMotor.set(-volts);
+
+public void stop(){
+  intakeMotor.set(0);
+}
+
+public void eject(){
+  intakeMotor.set(-1);
 }
  
   @Override

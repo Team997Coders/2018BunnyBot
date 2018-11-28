@@ -8,8 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Robot;
 
 public class GearShift extends Command {
@@ -27,10 +25,10 @@ public class GearShift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.driveTrain.lastGearNum == 1) {
-      Robot.driveTrain.setGear(0);
+    if (Robot.driveTrain.lastGearState == true) {
+      Robot.driveTrain.setGear(false);
     } else {
-      Robot.driveTrain.setGear(1);
+      Robot.driveTrain.setGear(true);
     }
   }
 

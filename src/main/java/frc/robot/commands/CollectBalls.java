@@ -12,14 +12,11 @@ import frc.robot.Robot;
 
 public class CollectBalls extends Command {
   
-  private double volts;
  
-  public CollectBalls(double voltage) {
+  public CollectBalls() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.intake); 
-    volts = voltage;
-    
+    requires(Robot.BallIntake); 
   }
 
   // Called just before this Command runs the first time
@@ -30,7 +27,7 @@ public class CollectBalls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.collect(volts);
+    Robot.intake.collect();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +39,7 @@ public class CollectBalls extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.collect(0);
+      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
