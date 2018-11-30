@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.*;
 import frc.robot.OI;
@@ -34,11 +35,16 @@ public class DriveTrain extends Subsystem {
   public double rightRate;
 	//temp
   private VictorSPX leftVictor1, leftVictor2;
-	private VictorSPX rightVictor1, rightVictor2;
+  private VictorSPX rightVictor1, rightVictor2;
+  
+  BuiltInAccelerometer accelerometer;
 
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
 
   public DriveTrain() {
+
+    accelerometer = new BuiltInAccelerometer();
+
     lastGearState = false;
 
     leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
@@ -101,14 +107,20 @@ public class DriveTrain extends Subsystem {
 		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
-		leftTalon.config_kP(0, 0.113333, 10);
-		leftTalon.config_kI(0, 0, 10);
-		leftTalon.config_kD(0, 0, 10);		
+    //leftTalon.config_kP(0, 0.113333, 10);
+    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    //leftTalon.config_kI(0, 0, 10);
+    leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    //leftTalon.config_kD(0, 0, 10);		
+    leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 
 		rightTalon.config_kF(0, 0.1097, 10);
-		rightTalon.config_kP(0, 0.113333, 10);
-		rightTalon.config_kI(0, 0, 10);
-		rightTalon.config_kD(0, 0, 10);	
+    //rightTalon.config_kP(0, 0.113333, 10);
+    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    //rightTalon.config_kI(0, 0, 10);
+    rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    //rightTalon.config_kD(0, 0, 10);	
+    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 		
 		new SensorCollection(leftTalon);
 		new SensorCollection(rightTalon);
@@ -182,5 +194,8 @@ public class DriveTrain extends Subsystem {
     SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
     SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);
+    SmartDashboard.putNumber("Accelerometer X", accelerometer.getX());
+    SmartDashboard.putNumber("Accelerometer Y", accelerometer.getY());
+    SmartDashboard.putNumber("Accelerometer Z", accelerometer.getZ());
   }
 }

@@ -40,6 +40,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    if ((!SmartDashboard.getKeys().contains("P") || !SmartDashboard.getKeys().contains("I")) || !SmartDashboard.getKeys().contains("D")) {
+      SmartDashboard.putNumber("P", 0.0);
+      SmartDashboard.putNumber("I", 0.0);
+      SmartDashboard.putNumber("D", 0.0);
+
+      SmartDashboard.setPersistent("P");
+      SmartDashboard.setPersistent("I");
+      SmartDashboard.setPersistent("D");
+    }
+
     driveTrain = new DriveTrain();
     intake = new BallIntake();
     oi = new OI();
@@ -51,6 +62,10 @@ public class Robot extends TimedRobot {
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
     SmartDashboard.putData("Auto commands", chooser);
+
+    // PID "Tuning" (Idfk know if thats right?)
+
+    
   }
 
   /**
