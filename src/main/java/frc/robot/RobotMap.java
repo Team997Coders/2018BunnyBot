@@ -28,6 +28,7 @@ public class RobotMap {
     leftVictor2Port = 2,
     rightVictor1Port = 3,
     rightVictor2Port = 4,
+    backHopperPort = 8,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
