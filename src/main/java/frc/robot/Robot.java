@@ -11,7 +11,6 @@ import frc.robot.commands.DriveToDistance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ADriveForward;
@@ -26,7 +25,6 @@ import frc.robot.subsystems.BallIntake;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static final Subsystem BallIntake = null;
   public static DriveTrain driveTrain;
   public static OI oi;
   public static BallIntake intake;

@@ -38,8 +38,8 @@ public class RobotMap {
     gearPistonRev = 3,
     ButtonY = 3,
     
-    intakeMotorPort = 7,
-    outtakeMotorPort = 8,
+    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
+    outtakeMotorPort = 7,
     ButtonB = 1,
     ButtonX = 2;
 
