@@ -32,8 +32,16 @@ public class RobotMap {
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
     rightEncoderChannelA = 6,
+<<<<<<< HEAD
     rightEncoderChannelB = 7,
 
+    bunnyEjectorSolenoidPort1 = 4,
+    bunnyEjectorSolenoidPort2 = 5,
+    ballEjectorMotorPort = 9,
+=======
+    rightEncoderChannelB = 7;
+>>>>>>> 5ddc8f95219bba0d9c1350ce01235a48c8885aab
+    //g1_left/rightYAxis are arbitray, so TODO: find actual port values
     gearPistonFor = 2,
     gearPistonRev = 3,
     ButtonY = 3,

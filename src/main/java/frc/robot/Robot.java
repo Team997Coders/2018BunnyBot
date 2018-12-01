@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.BallIntake;
+import frc.robot.commands.ADriveForward;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,7 +25,7 @@ import frc.robot.subsystems.BallIntake;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static DriveTrain driveTrain;
+  public static DriveTrain driveTrain = new DriveTrain();
   public static OI oi;
   public static BallIntake intake;
 
