@@ -8,11 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.EjecctBall;
-import frc.robot.commands.EjectBunny;
-import frc.robot.subsystems.BallEjector;
-import frc.robot.subsystems.BunnyEjector;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -23,10 +18,6 @@ public class OI {
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
-    JoystickButton buttonX = new JoystickButton(gamepad1, RobotMap.Ports.buttonX);
-    buttonX.toggleWhenPressed(new EjecctBall());
-    JoystickButton buttonB = new JoystickButton(gamepad1, RobotMap.Ports.buttonB);
-    buttonB.toggleWhenPressed(new EjectBunny());
   }
 
   public double getRightYAxis() {

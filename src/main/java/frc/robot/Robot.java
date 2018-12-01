@@ -12,9 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.BallEjector;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.BunnyEjector;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -25,8 +24,6 @@ import frc.robot.subsystems.BunnyEjector;
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
   public static OI oi;
-  public static BallEjector ballEjector = new BallEjector();
-  public static BunnyEjector bunnyEjector = new BunnyEjector();
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
