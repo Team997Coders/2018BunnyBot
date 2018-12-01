@@ -18,22 +18,42 @@ public class RobotMap {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
-    g1_rightYAxis = 3,
+    g1_rightXAxis = 4,
+    g1_rightYAxis = 5,
+    
+    leftTalonPort = 9,
+    rightTalonPort =10,
 
-    leftMotorPort = 1,
-    rightMotorPort = 0,
+    leftVictor1Port = 1,
+    leftVictor2Port = 2,
+    rightVictor1Port = 3,
+    rightVictor2Port = 4,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
     rightEncoderChannelA = 6,
+<<<<<<< HEAD
     rightEncoderChannelB = 7,
 
-    bunnyEjectorSolenoidPort1 = 2,
+    bunnyEjectorSolenoidPort1 = 4,
     bunnyEjectorSolenoidPort2 = 5,
-    ballEjectorMotorPort = 3,
-
-    buttonB = 2,
-    buttonX = 3;
+    ballEjectorMotorPort = 9,
+=======
+    rightEncoderChannelB = 7;
+>>>>>>> 5ddc8f95219bba0d9c1350ce01235a48c8885aab
     //g1_left/rightYAxis are arbitray, so TODO: find actual port values
+    gearPistonFor = 2,
+    gearPistonRev = 3,
+    ButtonY = 3,
+    
+    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
+    outtakeMotorPort = 7,
+    ButtonB = 1,
+    ButtonX = 2;
+
+  }
+  public class Values{
+    public static final double
+    ticksPerFoot = 1/7565;
   }
 }

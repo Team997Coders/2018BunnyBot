@@ -9,11 +9,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.BunnyEjector;
 
-public class EjectBunny extends Command {
-  public EjectBunny() {
-    requires(Robot.bunnyEjector);
+public class GearShift extends Command {
+  public GearShift() {
+    requires(Robot.driveTrain);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -26,22 +25,29 @@ public class EjectBunny extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.driveTrain.lastGearState == true) {
+      Robot.driveTrain.setGear(false);
+    } else {
+      Robot.driveTrain.setGear(true);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // if (Robot.driveTrain.lastGearNum == Robot.driveTrain.currentGearNum){
+    return true;
+    // }
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
-  }
+  protected void end() { }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() { 
+    end();
   }
 }

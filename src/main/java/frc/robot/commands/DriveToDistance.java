@@ -4,14 +4,16 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class EjecctBall extends Command {
-  public EjecctBall() {
-    requires(Robot.ballEjector);
+public class DriveToDistance extends Command {
+  private int Distance;
+
+  public DriveToDistance( int ticks) {
+    Distance = ticks;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -19,17 +21,21 @@ public class EjecctBall extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.driveTrain.resetEncoders();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ballEjector.setVolts(-1);
+    Robot.driveTrain.setVolts(.1, .1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if (Robot.driveTrain.getLeftEncoderTicks() >= Distance || Robot.driveTrain.getRightEncoderTicks()>= Distance){
+      return true;
+    }
     return false;
   }
 
