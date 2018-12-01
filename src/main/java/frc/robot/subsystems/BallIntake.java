@@ -25,8 +25,8 @@ public class BallIntake extends Subsystem {
     /* set the peak, nominal outputs */
 		intakeMotor.configNominalOutputForward(0, 10);
 		intakeMotor.configNominalOutputReverse(0, 10);
-		intakeMotor.configPeakOutputForward(1.0, 10);	//Use for extrasensitive CB
-		intakeMotor.configPeakOutputReverse(-1.0, 10); //Use for extrasensitive CB*/
+		intakeMotor.configPeakOutputForward(1.0, 10);
+		intakeMotor.configPeakOutputReverse(-1.0, 10);
   }
     
 public void collect(){
