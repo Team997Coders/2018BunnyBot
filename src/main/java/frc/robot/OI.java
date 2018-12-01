@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.*;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -15,18 +17,35 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
   Joystick gamepad1;
+  JoystickButton collect;
+  JoystickButton eject;
+  // JoystickButton shift;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
+    collect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonB);
+    collect.whileHeld(new CollectBalls());
+    eject = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
+    eject.whileHeld(new EjectBalls());
+    JoystickButton shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+    shift.whenPressed(new GearShift());
   }
 
   public double getRightYAxis() {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_rightYAxis);
   }
 
+<<<<<<< HEAD
+=======
+  public double getRightXAxis() {
+    return -gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
+  }
+
+>>>>>>> ballIntake
   public double getLeftYAxis() {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_leftYAxis);
   }
+
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

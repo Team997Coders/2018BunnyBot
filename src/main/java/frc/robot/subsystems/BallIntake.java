@@ -7,34 +7,40 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.VictorSP;
-
 /**
  * Add your docs here.
  */
-public class BallEjector extends Subsystem {
+public class BallIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
- private VictorSP ballEjectorMotor;
+  public TalonSRX intakeMotor;
+
+  public BallIntake(){
+    intakeMotor = new TalonSRX(RobotMap.Ports.intakeMotorPort); 
+    /* set the peak, nominal outputs */
+		intakeMotor.configNominalOutputForward(0, 10);
+		intakeMotor.configNominalOutputReverse(0, 10);
+		intakeMotor.configPeakOutputForward(1.0, 10);
+		intakeMotor.configPeakOutputReverse(-1.0, 10);
+  }
+    
+public void collect(){
+  intakeMotor.set(ControlMode.PercentOutput, 1.0);
+}
+
+public void stop(){
+  intakeMotor.set(ControlMode.PercentOutput, 0);
+}
+
+public void eject(){
+  intakeMotor.set(ControlMode.PercentOutput, -1.0);
+}
  
- public BallEjector(){
-  // TODO: need to input the motor controller (not avalible as of 5:52 pm 10/19/2018)
-  // TODO: assign correct port information for the ballEjectorMotor in RobotMap.java
-  ballEjectorMotor = new VictorSP(RobotMap.Ports.ballEjectorMotorPort);
-  }
-  public void setVolts(double B){
-    if(B < 0){
-      ballEjectorMotor.set(B);
-    }else{
-      ballEjectorMotor.set(-B);
-    }
-  }
-  public void stopVolts(){
-    ballEjectorMotor.set(0);
-  }
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

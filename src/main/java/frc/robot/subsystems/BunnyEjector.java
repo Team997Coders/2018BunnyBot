@@ -29,7 +29,7 @@ public class BunnyEjector extends Subsystem {
     // TODO: assign correct port information for the bunnyEjectorSolenoid in RobotMap.java
     bunnyEjectorSolenoid = new DoubleSolenoid(RobotMap.Ports.bunnyEjectorSolenoidPort1, RobotMap.Ports.bunnyEjectorSolenoidPort2); 
   
-    ejected = this.ejectedState;
+    //ejected = this.ejectedState;
   }
   public void ejectBunny(){
     bunnyEjectorSolenoid.set(DoubleSolenoid.Value.kForward);

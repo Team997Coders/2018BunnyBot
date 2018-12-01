@@ -7,12 +7,15 @@
 
 package frc.robot;
 
+import frc.robot.commands.DriveToDistance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.BallIntake;
+import frc.robot.commands.ADriveForward;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +27,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
   public static OI oi;
+  public static BallIntake intake;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -34,10 +38,32 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    if ((!SmartDashboard.getKeys().contains("P") || !SmartDashboard.getKeys().contains("I")) || !SmartDashboard.getKeys().contains("D")) {
+      SmartDashboard.putNumber("P", 0.0);
+      SmartDashboard.putNumber("I", 0.0);
+      SmartDashboard.putNumber("D", 0.0);
+
+      SmartDashboard.setPersistent("P");
+      SmartDashboard.setPersistent("I");
+      SmartDashboard.setPersistent("D");
+    }
+
+    driveTrain = new DriveTrain();
+    intake = new BallIntake();
     oi = new OI();
+
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", chooser);
+
+    chooser.addDefault("Default", null);
+    chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
+    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
+    SmartDashboard.putData("Auto commands", chooser);
+
+    // PID "Tuning" (Idfk know if thats right?)
+
+    
   }
 
   /**
@@ -64,6 +90,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    updateSmartDashboard();
   }
 
   /**
@@ -100,6 +127,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    updateSmartDashboard();
   }
 
   @Override
@@ -119,6 +147,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    //driveTrain.automaticShifting();
+    updateSmartDashboard();
   }
 
   /**
@@ -127,4 +157,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  public void updateSmartDashboard(){
+    driveTrain.updateSmartDashboard();
+  }
+
 }
