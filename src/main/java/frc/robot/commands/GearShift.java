@@ -6,12 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 
-public class AutoCollect extends Command {
-  public AutoCollect() {
-    requires(Robot.intake);
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+
+public class GearShift extends Command {
+  public GearShift() {
+    requires(Robot.driveTrain);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -19,29 +20,34 @@ public class AutoCollect extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.collect();
+    if (Robot.driveTrain.lastGearState == true) {
+      Robot.driveTrain.setGear(false);
+    } else {
+      Robot.driveTrain.setGear(true);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // if (Robot.driveTrain.lastGearNum == Robot.driveTrain.currentGearNum){
+    return true;
+    // }
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
-  }
+  protected void end() { }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() { 
+    end();
   }
 }

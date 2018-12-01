@@ -7,31 +7,28 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.commands.*;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
+import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends Subsystem {
  
   private TalonSRX leftTalon, rightTalon;
-  //private Encoder leftEncoder, rightEncoder;
+  private Encoder leftEncoder, rightEncoder;
   public boolean lastGearState;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
@@ -39,22 +36,34 @@ public class DriveTrain extends Subsystem {
 	//temp
   private VictorSPX leftVictor1, leftVictor2;
   private VictorSPX rightVictor1, rightVictor2;
+  
   private AHRS gyro;
   public  double initangle;
   public boolean gyroPresent;
 
+
+  
+  BuiltInAccelerometer accelerometer;
+
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
 
   public DriveTrain() {
-    /*try {
-      gyro = new AHRS(RobotMap.Ports.AHRS);
-    gyro.reset();
-    initangle = gyro.getAngle();
-    gyroPresent = true;
-    }
-    catch(RuntimeException e){
-    e.printStackTrace();
-    }*/
+    
+
+try {
+  gyro = new AHRS(RobotMap.Ports.AHRS);
+gyro.reset();
+initangle = gyro.getAngle();
+gyroPresent = true;
+}
+catch(RuntimeException e){
+e.printStackTrace();
+}
+
+
+    
+    accelerometer = new BuiltInAccelerometer();
+
     lastGearState = false;
 
     leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
@@ -117,22 +126,27 @@ public class DriveTrain extends Subsystem {
 		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
-		leftTalon.config_kP(0, 0.113333, 10);
-		leftTalon.config_kI(0, 0, 10);
-		leftTalon.config_kD(0, 0, 10);		
+    //leftTalon.config_kP(0, 0.113333, 10);
+    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    //leftTalon.config_kI(0, 0, 10);
+    leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    //leftTalon.config_kD(0, 0, 10);		
+    leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 
 		rightTalon.config_kF(0, 0.1097, 10);
-		rightTalon.config_kP(0, 0.113333, 10);
-		rightTalon.config_kI(0, 0, 10);
-		rightTalon.config_kD(0, 0, 10);	
+    //rightTalon.config_kP(0, 0.113333, 10);
+    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    //rightTalon.config_kI(0, 0, 10);
+    rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    //rightTalon.config_kD(0, 0, 10);	
+    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 		
 		new SensorCollection(leftTalon);
-    new SensorCollection(rightTalon);
-    
+		new SensorCollection(rightTalon);
 
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
-   
   }
+  
 
   public void setGear(boolean gearState) {
     if (lastGearState != gearState){
@@ -147,35 +161,31 @@ public class DriveTrain extends Subsystem {
     }
   }
 
-  public double getLeftRate() {
-    /*if (Math.abs(leftEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
-        return leftEncoder.getRate();/*Robot.oi.getLeftYAxis())
-    }else{
-      System.out.println(leftEncoder.getRate());
-      return 0;
-    }*/
+  public double getLeftEncoderRate() {
+		return leftTalon.getSelectedSensorVelocity(0);
+	}
 
-    return 0;
+	public double getRightEncoderRate() {
+		return rightTalon.getSelectedSensorVelocity(0);
+  }
+  
+  public double getLeftEncoderTicks() {
+		/* CTRE Magnetic Encoder relative, same as Quadrature */
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		return leftTalon.getSelectedSensorPosition(0);
+	}
+
+	public double getRightEncoderTicks() {
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		return rightTalon.getSelectedSensorPosition(0);
   }
 
-  public double getRightRate() {
-    /*if (Math.abs(rightEncoder.getRate()/(RobotMap.Values.ticksPerFoot)) < 20) {
-        return rightEncoder.getRate();/*Robot.oi.getRightYAxis())
-    }else{
-      System.out.println(rightEncoder.getRate());
-      return 0;
-    }*/
-
-    return 0;
+  public void automaticShifting(){
+    if (getLeftEncoderRate() >= 6 && getRightEncoderRate() >= 6 && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+      setGear(true);
+      lastGearState = true;
+    } else {}
   }
-
-  /*public void automaticShifting(){
-    if (getLeftRate() >= 6 && getRightRate() >= 6 && lastGearNum == 0 && Math.abs(Robot.oi.getLeftYAxis()) == 1){
-    setGear(1);
-    lastGearNum = 1;
-    } else{}
-  }*/
-
   public void setVolts(double leftSpeed, double rightSpeed) {
     leftTalon.set(ControlMode.PercentOutput, leftSpeed);
     rightTalon.set(ControlMode.PercentOutput, rightSpeed);
@@ -185,46 +195,54 @@ public class DriveTrain extends Subsystem {
     rightTalon.set(ControlMode.PercentOutput, 0);
   }
 
-  public int getLeftTicks() { 
-    return 0; //leftEncoder.get(); 
-  }
-
-  public int getRightTicks() { 
-    return 0; //rightEncoder.get(); 
-  }
-  
-  public void resetTicks() {
-    //leftEncoder.reset();
-    //rightEncoder.reset();
-  
-  }
-  
-
-public double getAngle(){
-if (gyroPresent){
-  return gyro.getAngle();
-}
-else{
-  return 0.0;
-}
-}
-/*public int GetAverageTicks() {
-  return (leftEncoder.get() + rightEncoder.get())/2;
-  
-}*/
-
-
+  public void resetEncoders() {
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		leftTalon.setSelectedSensorPosition(0, 0, 10);
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		rightTalon.setSelectedSensorPosition(0, 0, 10);
+		System.out.println("Encoders reset!");
+	}
 
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive());
   }
+  public int getLeftTicks() { 
+    return leftEncoder.get(); 
+  }
+
+  public int getRightTicks() { 
+    return rightEncoder.get(); 
+  }
+  
+  public void resetTicks() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  
+  }
+
+  
+public double getAngle(){
+  if (gyroPresent){
+    return gyro.getAngle();
+  }
+  else{
+    return 0.0;
+  }
+  }
+  public int GetAverageTicks() {
+    return (leftEncoder.get() + rightEncoder.get())/2;
+    
+  }
 
   public void updateSmartDashboard() {
     //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
-    SmartDashboard.putNumber("LeftEncoderRate", getLeftRate());
-    SmartDashboard.putNumber("RightEncoderRate", getRightRate());
+    SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
+    SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);
+    SmartDashboard.putNumber("Accelerometer X", accelerometer.getX());
+    SmartDashboard.putNumber("Accelerometer Y", accelerometer.getY());
+    SmartDashboard.putNumber("Accelerometer Z", accelerometer.getZ());
   }
 }

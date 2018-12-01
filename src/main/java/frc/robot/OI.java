@@ -9,8 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CollectBalls;
-import frc.robot.commands.UnCollectBalls;
+import frc.robot.commands.*;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -19,15 +18,17 @@ public class OI {
 
   Joystick gamepad1;
   JoystickButton collect;
-  JoystickButton uncollect;
-
+  JoystickButton eject;
+  JoystickButton shift;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
-    collect = new JoystickButton(gamepad1, RobotMap.Ports.collectButton);
-    collect.whileHeld(new CollectBalls(1));
-    uncollect = new JoystickButton(gamepad1, RobotMap.Ports.unCollectButton);
-    uncollect.whileHeld(new UnCollectBalls(1));
+    collect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonB);
+    collect.whileHeld(new CollectBalls());
+    eject = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
+    eject.whileHeld(new EjectBalls());
+    JoystickButton shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+    shift.whenPressed(new GearShift());
   }
 
   public double getRightYAxis() {
@@ -35,14 +36,11 @@ public class OI {
   }
 
   public double getRightXAxis() {
-    return gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
+    return -gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
   }
 
   public double getLeftYAxis() {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_leftYAxis);
-  }
-  public double getRightXAxis() {
-    return gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
   }
 
 

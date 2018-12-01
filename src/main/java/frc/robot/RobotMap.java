@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.SerialPort;
  * floating around.
  */
 public class RobotMap {
-  public class Ports {
+  public static class Ports {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
@@ -43,12 +43,14 @@ public class RobotMap {
     outtakeMotorPort = 8,
     ButtonB = 1,
     ButtonX = 2;
-    public final SerialPort.Port AHRS = SerialPort.Port.kUSB;
 
+    public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }
   public class Values{
     public static final double
     ticksPerFoot = 1/7565,
+    DriveAngleP = .01,
+    DriveToDistanceMargin = 50,
     DriveP = 0;
       //.00002; 
   }

@@ -10,15 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class UnCollectBalls extends Command {
+public class EjectBalls extends Command {
   
-  private double volts; 
-
-  public UnCollectBalls(double voltage) {
+  public EjectBalls() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.intake);
-    volts = voltage;
   }
 
   // Called just before this Command runs the first time
@@ -29,7 +26,7 @@ public class UnCollectBalls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.uncollect(volts);
+    Robot.intake.eject();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,7 +38,7 @@ public class UnCollectBalls extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.uncollect(0);
+    Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same

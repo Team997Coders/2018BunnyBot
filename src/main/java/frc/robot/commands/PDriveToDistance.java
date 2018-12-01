@@ -46,7 +46,7 @@ public class PDriveToDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Math.abs(Error-Robot.driveTrain.GetAverageTicks()) <= 50){
+    if (Math.abs(Error-Robot.driveTrain.GetAverageTicks()) <= 75){
     return true;
     }
     return false;
