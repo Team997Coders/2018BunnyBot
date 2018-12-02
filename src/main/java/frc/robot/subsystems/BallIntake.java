@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 /**
@@ -16,22 +18,27 @@ import frc.robot.RobotMap;
 public class BallIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private VictorSP intakeMotor;
+  public TalonSRX intakeMotor;
 
   public BallIntake(){
-    intakeMotor = new VictorSP(RobotMap.Ports.intakeMotorPort); 
+    intakeMotor = new TalonSRX(RobotMap.Ports.intakeMotorPort); 
+    /* set the peak, nominal outputs */
+		intakeMotor.configNominalOutputForward(0, 10);
+		intakeMotor.configNominalOutputReverse(0, 10);
+		intakeMotor.configPeakOutputForward(1.0, 10);
+		intakeMotor.configPeakOutputReverse(-1.0, 10);
   }
     
 public void collect(){
-  intakeMotor.set(1);
+  intakeMotor.set(ControlMode.PercentOutput, 1.0);
 }
 
 public void stop(){
-  intakeMotor.set(0);
+  intakeMotor.set(ControlMode.PercentOutput, 0);
 }
 
 public void eject(){
-  intakeMotor.set(-1);
+  intakeMotor.set(ControlMode.PercentOutput, -1.0);
 }
  
   @Override

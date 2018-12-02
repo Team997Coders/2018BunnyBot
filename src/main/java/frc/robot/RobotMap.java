@@ -35,12 +35,15 @@ public class RobotMap {
     rightEncoderChannelA = 6,
     rightEncoderChannelB = 7,
 
+    bunnyEjectorSolenoidPort1 = 4,
+    bunnyEjectorSolenoidPort2 = 5,
+    ballEjectorMotorPort = 9,
     gearPistonFor = 2,
     gearPistonRev = 3,
     ButtonY = 3,
     
-    intakeMotorPort = 7,
-    outtakeMotorPort = 8,
+    intakeMotorPort = 8,
+    outtakeMotorPort = 7,
     ButtonB = 1,
     ButtonX = 2;
 
@@ -51,7 +54,10 @@ public class RobotMap {
     ticksPerFoot = 1/7565,
     DriveAngleP = .01,
     DriveToDistanceMargin = 50,
-    DriveP = 0;
-      //.00002; 
+    DriveP = 0, //.00002
+    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
+    outtakeMotorPort = 7,
+    ButtonB = 1,
+    ButtonX = 2;
   }
 }

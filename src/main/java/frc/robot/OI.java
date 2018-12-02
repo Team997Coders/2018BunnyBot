@@ -19,7 +19,7 @@ public class OI {
   Joystick gamepad1;
   JoystickButton collect;
   JoystickButton eject;
-  JoystickButton shift;
+  // JoystickButton shift;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);

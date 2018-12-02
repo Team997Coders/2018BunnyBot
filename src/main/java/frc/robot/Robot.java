@@ -11,17 +11,18 @@ import frc.robot.commands.PDriveToDistance;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.PDriveToAngle;
-import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ADriveForward;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.AutoDefaultCommand;
+import frc.robot.subsystems.BallIntake;
+import frc.robot.commands.ADriveForward;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -30,7 +31,7 @@ import frc.robot.commands.AutoDefaultCommand;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static DriveTrain driveTrain;
+  public static DriveTrain driveTrain = new DriveTrain();
   public static OI oi;
   public static BallIntake intake;
 
@@ -43,6 +44,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    if ((!SmartDashboard.getKeys().contains("P") || !SmartDashboard.getKeys().contains("I")) || !SmartDashboard.getKeys().contains("D")) {
+      SmartDashboard.putNumber("P", 0.0);
+      SmartDashboard.putNumber("I", 0.0);
+      SmartDashboard.putNumber("D", 0.0);
+
+      SmartDashboard.setPersistent("P");
+      SmartDashboard.setPersistent("I");
+      SmartDashboard.setPersistent("D");
+    }
+
     driveTrain = new DriveTrain();
     intake = new BallIntake();
     oi = new OI();
@@ -56,7 +68,7 @@ public class Robot extends TimedRobot {
     chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
     chooser.addObject("Got to 90 degress", new TurnToAngle(90));
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-    chooser.addObject("Go Forward Nerd", new DriveForward());
+    chooser.addObject("Go Forward Nerd", new ADriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
     SmartDashboard.putData("Auto commands", chooser);
     SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
@@ -88,6 +100,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    updateSmartDashboard();
   }
 
   /**
@@ -124,6 +137,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    updateSmartDashboard();
   }
 
   @Override
@@ -143,6 +157,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    //driveTrain.automaticShifting();
+    updateSmartDashboard();
   }
 
   /**
@@ -151,4 +167,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  public void updateSmartDashboard(){
+    driveTrain.updateSmartDashboard();
+  }
+
 }

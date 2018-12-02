@@ -29,7 +29,7 @@ public class PDriveToDistance extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() { 
-    Robot.driveTrain.resetTicks();
+    Robot.driveTrain.resetEncoders();
     
   }
 
@@ -37,16 +37,16 @@ public class PDriveToDistance extends Command {
   @Override
   protected void execute() {
     SmartDashboard.putNumber("RealInitYaw", initYaw);
-    Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
+    Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()));
     if ((Robot.driveTrain.getAngle()) < (initYaw-Error)){
-      Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.GetAverageTicks()));
+      Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()));
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Math.abs(Error-Robot.driveTrain.GetAverageTicks()) <= 75){
+    if (Math.abs(Error-Robot.driveTrain.getAverageTicks()) <= 75){
     return true;
     }
     return false;

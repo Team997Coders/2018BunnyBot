@@ -21,7 +21,7 @@ public class DriveToDistance extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveTrain.resetTicks();
+    Robot.driveTrain.resetEncoders();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,7 +33,7 @@ public class DriveToDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Robot.driveTrain.getLeftTicks() >= Distance || Robot.driveTrain.getRightTicks()>= Distance){
+    if (Robot.driveTrain.getLeftEncoderTicks() >= Distance || Robot.driveTrain.getRightEncoderTicks()>= Distance){
       return true;
     }
     return false;

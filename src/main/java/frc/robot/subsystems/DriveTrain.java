@@ -24,11 +24,27 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.commands.*;
+import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveTrain extends Subsystem {
  
   private TalonSRX leftTalon, rightTalon;
-  private Encoder leftEncoder, rightEncoder;
+  //private Encoder leftEncoder, rightEncoder;
   public boolean lastGearState;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
@@ -40,28 +56,14 @@ public class DriveTrain extends Subsystem {
   private AHRS gyro;
   public  double initangle;
   public boolean gyroPresent;
-
-
-  
   BuiltInAccelerometer accelerometer;
 
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
 
+  //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
+
   public DriveTrain() {
-    
 
-try {
-  gyro = new AHRS(RobotMap.Ports.AHRS);
-gyro.reset();
-initangle = gyro.getAngle();
-gyroPresent = true;
-}
-catch(RuntimeException e){
-e.printStackTrace();
-}
-
-
-    
     accelerometer = new BuiltInAccelerometer();
 
     lastGearState = false;
@@ -145,9 +147,17 @@ e.printStackTrace();
 		new SensorCollection(rightTalon);
 
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
+    try {
+      gyro = new AHRS(RobotMap.Ports.AHRS);
+    gyro.reset();
+    initangle = gyro.getAngle();
+    gyroPresent = true;
+    }
+    catch(RuntimeException e){
+    e.printStackTrace();
+    }
   }
   
-
   public void setGear(boolean gearState) {
     if (lastGearState != gearState){
       if (gearState) {
@@ -186,12 +196,13 @@ e.printStackTrace();
       lastGearState = true;
     } else {}
   }
+
   public void setVolts(double leftSpeed, double rightSpeed) {
-    leftTalon.set(ControlMode.PercentOutput, leftSpeed);
-    rightTalon.set(ControlMode.PercentOutput, rightSpeed);
+    leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.2);
+    rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.2);
   }
+    
   public void stopVolts() {
-    leftTalon.set(ControlMode.PercentOutput, 0);
     rightTalon.set(ControlMode.PercentOutput, 0);
   }
 
@@ -203,41 +214,27 @@ e.printStackTrace();
 		System.out.println("Encoders reset!");
 	}
 
-  @Override
+  public double getAngle() {
+    if (gyroPresent){
+      return gyro.getAngle();
+    }
+    else{
+      return 0.0;
+    }
+  }
+
+  public double getAverageTicks() {
+      return ((getLeftEncoderTicks() + getRightEncoderTicks())/2);
+    }
+
+    @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new ArcadeDrive());
-  }
-  public int getLeftTicks() { 
-    return leftEncoder.get(); 
-  }
+      setDefaultCommand(new TankDrive());
+    }
 
-  public int getRightTicks() { 
-    return rightEncoder.get(); 
-  }
-  
-  public void resetTicks() {
-    leftEncoder.reset();
-    rightEncoder.reset();
-  
-  }
-
-  
-public double getAngle(){
-  if (gyroPresent){
-    return gyro.getAngle();
-  }
-  else{
-    return 0.0;
-  }
-  }
-  public int GetAverageTicks() {
-    return (leftEncoder.get() + rightEncoder.get())/2;
-    
-  }
-
-  public void updateSmartDashboard() {
     //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
+  public void updateSmartDashboard(){
     SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
     SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);

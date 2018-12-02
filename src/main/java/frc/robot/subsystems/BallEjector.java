@@ -7,28 +7,34 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.VictorSP;
+
 /**
  * Add your docs here.
  */
-public class BallIntake extends Subsystem {
+public class BallEjector extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private VictorSP intakeMotor;
-
-  public BallIntake(){
-    intakeMotor = new VictorSP(RobotMap.Ports.intakeMotorPort); 
-  }
-    
-public void collect(double volts){
-  intakeMotor.set(volts);
-}
-public void uncollect(double volts){
-  intakeMotor.set(-volts);
-}
+ private VictorSP ballEjectorMotor;
  
+ public BallEjector(){
+  // TODO: need to input the motor controller (not avalible as of 5:52 pm 10/19/2018)
+  // TODO: assign correct port information for the ballEjectorMotor in RobotMap.java
+  ballEjectorMotor = new VictorSP(RobotMap.Ports.ballEjectorMotorPort);
+  }
+  public void setVolts(double B){
+    if(B < 0){
+      ballEjectorMotor.set(B);
+    }else{
+      ballEjectorMotor.set(-B);
+    }
+  }
+  public void stopVolts(){
+    ballEjectorMotor.set(0);
+  }
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
