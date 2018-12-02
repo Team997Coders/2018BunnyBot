@@ -7,44 +7,59 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotMap;
 
-public class EjectBalls extends Command {
+public class PDriveToDistance extends Command {
+  private double Error;
+  private double  initYaw = Robot.driveTrain.getAngle();
+  public PDriveToDistance(double error) {
+    requires(Robot.driveTrain);
+    Error = error;
+    
   
-  public EjectBalls() {
+    
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.intake);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  protected void initialize() { 
+    Robot.driveTrain.resetEncoders();
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.eject();
+    SmartDashboard.putNumber("RealInitYaw", initYaw);
+    Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()));
+    if ((Robot.driveTrain.getAngle()) < (initYaw-Error)){
+      Robot.driveTrain.setVolts(RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()), RobotMap.Values.DriveP * (Error-Robot.driveTrain.getAverageTicks()));
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if (Math.abs(Error-Robot.driveTrain.getAverageTicks()) <= 75){
+    return true;
+    }
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

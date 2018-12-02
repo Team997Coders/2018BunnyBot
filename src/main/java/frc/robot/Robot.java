@@ -7,13 +7,19 @@
 
 package frc.robot;
 
+import frc.robot.commands.PDriveToDistance;
+import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.PDriveToAngle;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.SimpleAuto;
+import frc.robot.commands.AutoDefaultCommand;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.ADriveForward;
 
@@ -55,15 +61,19 @@ public class Robot extends TimedRobot {
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
+    
 
     chooser.addDefault("Default", null);
+    chooser.addObject("Go to Angle P", new PDriveToAngle(-90));
+    chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
+    chooser.addObject("Got to 90 degress", new TurnToAngle(90));
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
+    chooser.addObject("Go Forward Nerd", new ADriveForward());
+    chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
     SmartDashboard.putData("Auto commands", chooser);
-
-    // PID "Tuning" (Idfk know if thats right?)
-
-    
+    SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
+    chooser.addObject("Simple Auto", new SimpleAuto());
+  
   }
 
   /**

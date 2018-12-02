@@ -7,6 +7,23 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
+import frc.robot.commands.ArcadeDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +53,12 @@ public class DriveTrain extends Subsystem {
   private VictorSPX leftVictor1, leftVictor2;
   private VictorSPX rightVictor1, rightVictor2;
   
+  private AHRS gyro;
+  public  double initangle;
+  public boolean gyroPresent;
   BuiltInAccelerometer accelerometer;
+
+  //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
 
   //public DoubleSolenoid.Value currentGearNum = shiftSolenoid.get();
 
@@ -125,8 +147,17 @@ public class DriveTrain extends Subsystem {
 		new SensorCollection(rightTalon);
 
     shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
+    try {
+      gyro = new AHRS(RobotMap.Ports.AHRS);
+    gyro.reset();
+    initangle = gyro.getAngle();
+    gyroPresent = true;
+    }
+    catch(RuntimeException e){
+    e.printStackTrace();
+    }
   }
-
+  
   public void setGear(boolean gearState) {
     if (lastGearState != gearState){
       if (gearState) {
@@ -165,12 +196,13 @@ public class DriveTrain extends Subsystem {
       lastGearState = true;
     } else {}
   }
+
   public void setVolts(double leftSpeed, double rightSpeed) {
     leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.2);
     rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.2);
   }
+    
   public void stopVolts() {
-    leftTalon.set(ControlMode.PercentOutput, 0);
     rightTalon.set(ControlMode.PercentOutput, 0);
   }
 
@@ -182,14 +214,27 @@ public class DriveTrain extends Subsystem {
 		System.out.println("Encoders reset!");
 	}
 
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new TankDrive());
+  public double getAngle() {
+    if (gyroPresent){
+      return gyro.getAngle();
+    }
+    else{
+      return 0.0;
+    }
   }
 
-  public void updateSmartDashboard() {
+  public double getAverageTicks() {
+      return ((getLeftEncoderTicks() + getRightEncoderTicks())/2);
+    }
+
+    @Override
+  public void initDefaultCommand() {
+      setDefaultCommand(new TankDrive());
+    }
+
     //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
+  public void updateSmartDashboard(){
     SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
     SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);

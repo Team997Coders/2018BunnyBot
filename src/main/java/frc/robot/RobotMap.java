@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import edu.wpi.first.wpilibj.SerialPort;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -14,7 +15,7 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  public class Ports {
+  public static class Ports {
     public static final int
     gamepad1 = 0,
     g1_leftYAxis = 1,
@@ -32,28 +33,31 @@ public class RobotMap {
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
     rightEncoderChannelA = 6,
-<<<<<<< HEAD
     rightEncoderChannelB = 7,
 
     bunnyEjectorSolenoidPort1 = 4,
     bunnyEjectorSolenoidPort2 = 5,
     ballEjectorMotorPort = 9,
-=======
-    rightEncoderChannelB = 7;
->>>>>>> 5ddc8f95219bba0d9c1350ce01235a48c8885aab
-    //g1_left/rightYAxis are arbitray, so TODO: find actual port values
     gearPistonFor = 2,
     gearPistonRev = 3,
     ButtonY = 3,
     
-    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
+    intakeMotorPort = 8,
     outtakeMotorPort = 7,
     ButtonB = 1,
     ButtonX = 2;
 
+    public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }
   public class Values{
     public static final double
-    ticksPerFoot = 1/7565;
+    ticksPerFoot = 1/7565,
+    DriveAngleP = .01,
+    DriveToDistanceMargin = 50,
+    DriveP = 0, //.00002
+    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
+    outtakeMotorPort = 7,
+    ButtonB = 1,
+    ButtonX = 2;
   }
 }

@@ -35,13 +35,10 @@ public class OI {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_rightYAxis);
   }
 
-<<<<<<< HEAD
-=======
   public double getRightXAxis() {
     return -gamepad1.getRawAxis(RobotMap.Ports.g1_rightXAxis);
   }
 
->>>>>>> ballIntake
   public double getLeftYAxis() {
     return gamepad1.getRawAxis(RobotMap.Ports.g1_leftYAxis);
   }
