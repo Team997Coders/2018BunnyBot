@@ -146,7 +146,6 @@ public class DriveTrain extends Subsystem {
 		new SensorCollection(leftTalon);
 		new SensorCollection(rightTalon);
 
-    shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
     try {
       gyro = new AHRS(RobotMap.Ports.AHRS);
     gyro.reset();
@@ -156,6 +155,7 @@ public class DriveTrain extends Subsystem {
     catch(RuntimeException e){
     e.printStackTrace();
     }
+    //shiftSolenoid = new DoubleSolenoid(RobotMap.Ports.gearPistonFor, RobotMap.Ports.gearPistonRev);
   }
   
   public void setGear(boolean gearState) {
@@ -227,9 +227,9 @@ public class DriveTrain extends Subsystem {
       return ((getLeftEncoderTicks() + getRightEncoderTicks())/2);
     }
 
-    @Override
+  @Override
   public void initDefaultCommand() {
-      setDefaultCommand(new TankDrive());
+      setDefaultCommand(new ArcadeDrive());
     }
 
     //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
