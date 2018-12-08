@@ -11,8 +11,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class TankDrive extends Command {
+
   public TankDrive() {
+    //requires(Robot.driveTrain);
+
+    //System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
     requires(Robot.driveTrain);
+
   }
 
   // Called just before this Command runs the first time

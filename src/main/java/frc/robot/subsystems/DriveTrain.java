@@ -164,7 +164,7 @@ public class DriveTrain extends Subsystem {
       setGear(true);
       lastGearState = true;
     } else {}
-  }
+  }  
   public void setVolts(double leftSpeed, double rightSpeed) {
     leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.2);
     rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.2);
@@ -184,7 +184,7 @@ public class DriveTrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new TankDrive());
+    setDefaultCommand(new ArcadeDrive());
   }
 
   public void updateSmartDashboard() {
