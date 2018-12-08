@@ -27,6 +27,7 @@ public class EjectBalls extends Command {
   @Override
   protected void execute() {
     Robot.intake.eject();
+    System.out.println("im inferior to collectballs");
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -28,6 +28,7 @@ public class CollectBalls extends Command {
   @Override
   protected void execute() {
     Robot.intake.collect();
+    System.out.println("im doing it dad");
   }
 
   // Make this return true when this Command no longer needs to run execute()

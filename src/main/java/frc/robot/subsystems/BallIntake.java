@@ -30,7 +30,7 @@ public class BallIntake extends Subsystem {
   }
     
 public void collect(){
-  intakeMotor.set(ControlMode.PercentOutput, 1.0);
+  intakeMotor.set(ControlMode.PercentOutput, -1.0); //-1 because 1 is reversed
 }
 
 public void stop(){
@@ -38,12 +38,10 @@ public void stop(){
 }
 
 public void eject(){
-  intakeMotor.set(ControlMode.PercentOutput, -1.0);
+  intakeMotor.set(ControlMode.PercentOutput, 1.0);
 }
  
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

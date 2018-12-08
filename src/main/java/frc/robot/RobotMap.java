@@ -40,12 +40,13 @@ public class RobotMap {
     //g1_left/rightYAxis are arbitray, so TODO: find actual port values
     gearPistonFor = 2,
     gearPistonRev = 3,
-    ButtonY = 3,
     
     intakeMotorPort = 7, //Temporarily flipped before we fix version issues.
     outtakeMotorPort = 8,
-    ButtonB = 1,
-    ButtonX = 2;
+    ButtonA = 1,
+    ButtonB = 2,
+    ButtonX = 3,
+    ButtonY = 4;
 
   }
   public class Values{

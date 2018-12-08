@@ -25,11 +25,12 @@ public class GearShift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.driveTrain.lastGearState == true) {
+    /*if (Robot.driveTrain.lastGearState == true) {
       Robot.driveTrain.setGear(false);
     } else {
       Robot.driveTrain.setGear(true);
-    }
+    }*/
+    System.out.println("i shifted, dad!");
   }
 
   // Make this return true when this Command no longer needs to run execute()
