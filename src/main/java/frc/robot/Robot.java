@@ -31,7 +31,7 @@ import frc.robot.commands.ADriveForward;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static DriveTrain driveTrain = new DriveTrain();
+  public static DriveTrain driveTrain;
   public static OI oi;
   public static BallIntake intake;
 
