@@ -9,9 +9,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.commands.CollectBalls;
 /**
  * Add your docs here.
  */
@@ -45,5 +46,8 @@ public void eject(){
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+  public void updateSmartDashboard(){
+    SmartDashboard.putData("Intake", new CollectBalls());
   }
 }

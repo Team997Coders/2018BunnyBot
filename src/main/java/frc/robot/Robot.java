@@ -19,8 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
-import frc.robot.commands.AutoDefaultCommand;
-import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.ADriveForward;
 
 /**
