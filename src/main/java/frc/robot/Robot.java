@@ -22,6 +22,8 @@ import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.ADriveForward;
 
 import frc.robot.subsystem.FrontHopper;
+import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.BackHopper;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static BallIntake intake;
   Public static FrontHopper frontHopper;
+  public static BackHopper backHopper;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -59,6 +62,7 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveTrain();
     intake = new BallIntake();
     frontHopper = newFrontHopper();
+    backHopper = new BackHopper();
     oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
