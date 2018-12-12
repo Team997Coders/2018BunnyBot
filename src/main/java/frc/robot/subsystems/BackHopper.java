@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.BackHopperIdle;
 
@@ -38,5 +39,8 @@ public class BackHopper extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new BackHopperIdle());
+  }
+  public void updateSmartDashboard(){
+    SmartDashboard.putData("Enable BackHopper", new BackHopper());
   }
 }
