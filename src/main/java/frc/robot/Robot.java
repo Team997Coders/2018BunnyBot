@@ -21,6 +21,8 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.ADriveForward;
 
+import frc.robot.subsystem.FrontHopper;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain driveTrain;
   public static OI oi;
   public static BallIntake intake;
+  Public static FrontHopper frontHopper;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -55,6 +58,7 @@ public class Robot extends TimedRobot {
 
     driveTrain = new DriveTrain();
     intake = new BallIntake();
+    frontHopper = newFrontHopper();
     oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
