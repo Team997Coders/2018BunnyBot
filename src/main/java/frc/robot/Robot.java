@@ -21,7 +21,7 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.ADriveForward;
 
-import frc.robot.subsystem.FrontHopper;
+import frc.robot.commands.FrontHopper;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.BackHopper;
 
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain driveTrain;
   public static OI oi;
   public static BallIntake intake;
-  Public static FrontHopper frontHopper;
+  public static FrontHopper frontHopper;
   public static BackHopper backHopper;
 
   Command m_autonomousCommand;
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
     driveTrain = new DriveTrain();
     intake = new BallIntake();
-    frontHopper = newFrontHopper();
+    frontHopper = new FrontHopper();
     backHopper = new BackHopper();
     oi = new OI();
 

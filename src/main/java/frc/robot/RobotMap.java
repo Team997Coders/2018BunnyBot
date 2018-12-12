@@ -30,6 +30,8 @@ public class RobotMap {
     rightVictor1Port = 3,
     rightVictor2Port = 4,
     backHopperPort = 8,
+    FrontHopperMotorPort1= 5,
+    FrontHopperMotorPort2=6,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,

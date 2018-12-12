@@ -8,56 +8,33 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.VictorSPX;
-import edu.wpi.first.wipilibj.command.Subsystem;
-import edu.wpi.first.wipilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.VictorSP;
 
 
 
 public class FrontHopper extends Subsystem {
  
- public VictorSPX frontHopperMotor;
+ public VictorSPX frontHopperMotor1;
+ public VictorSPX frontHopperMotor2;
 
   public FrontHopper() {
-    frontHopperMotor = new VictorSPX(RobotMap.Ports.FrontHopperMotorPort);
-    
-    frontHopperMotor.configPeakOutPut(1.0);
+    frontHopperMotor1 = new VictorSPX(RobotMap.Ports.FrontHopperMotorPort1);
+    frontHopperMotor2 = new VictorSPX(RobotMap.Ports.FrontHopperMotorPort2);
+    frontHopperMotor2.configPeakOutputForward(1, 10);
+    //frontHopperMotor1.configPeakOutPut(1.0);
+    frontHopperMotor1.configPeakOutputForward(1, 10);
 
 
   }
 
-  // Called just before this Command runs the first time
+ 
   @Override
-  protected void run() {
-
-    frontHopperMotor.set()ControlMode.PercentOutput,1.0);
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    frontnHopperMotor.set()ControlMode.PercentOUtput, 0);
-  }
-
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
+  public void initDefaultCommand() {}
   
-  @Override
-  protected void interrupted() {
-  }
   public void updateSmartDashboard(){
     SmartDashboard.putData("Enable FrontHopper", new FrontHopper());
   }

@@ -6,16 +6,17 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.src.robot.subsystem.FrontHopper;
+import frc.robot.Robot;
+
 
 public class FrontHopper extends Command {
  
   public FrontHopper() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    required(Robot.FrontHopper);
+    requires(Robot.frontHopper);
 
   }
 
