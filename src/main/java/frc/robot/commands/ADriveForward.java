@@ -13,6 +13,6 @@ public class ADriveForward extends CommandGroup {
   public ADriveForward() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    addSequential(new DriveToDistance(1));
+    addSequential(new DriveToDistance(-4000, -4000));
   }
 }

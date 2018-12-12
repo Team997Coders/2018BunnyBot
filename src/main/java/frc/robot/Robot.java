@@ -8,6 +8,8 @@
 package frc.robot;
 
 import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.EjectBalls;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.commands.ADriveForward;
+import frc.robot.commands.CollectBalls;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,6 +50,9 @@ public class Robot extends TimedRobot {
       SmartDashboard.setPersistent("P");
       SmartDashboard.setPersistent("I");
       SmartDashboard.setPersistent("D");
+      System.out.println("PID keys set persistent!");
+    }else{
+      System.out.println("PID keys found.");
     }
 
     driveTrain = new DriveTrain();
@@ -57,12 +63,13 @@ public class Robot extends TimedRobot {
     // chooser.addObject("My Auto", new MyAutoCommand());
 
     chooser.addDefault("Default", null);
-    chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-    chooser.addObject("Go Forward a bit", new DriveToDistance(2000));
+    chooser.addObject("1000 Ticks", new ADriveForward());
     SmartDashboard.putData("Auto commands", chooser);
 
     // PID "Tuning" (Idfk know if thats right?)
 
+    SmartDashboard.putData("Collect Balls", new CollectBalls());
+    SmartDashboard.putData("UnColelct Balls", new EjectBalls());
     
   }
 
@@ -106,6 +113,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+
+    driveTrain.updatePIDValues();
+
     m_autonomousCommand = chooser.getSelected();
 
     /*
@@ -132,6 +142,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    driveTrain.updatePIDValues();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

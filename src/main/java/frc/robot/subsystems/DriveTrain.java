@@ -106,19 +106,13 @@ public class DriveTrain extends Subsystem {
 		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
-    //leftTalon.config_kP(0, 0.113333, 10);
-    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
-    //leftTalon.config_kI(0, 0, 10);
+    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 1), 10);
     leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
-    //leftTalon.config_kD(0, 0, 10);		
     leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 
 		rightTalon.config_kF(0, 0.1097, 10);
-    //rightTalon.config_kP(0, 0.113333, 10);
-    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
-    //rightTalon.config_kI(0, 0, 10);
+    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 1), 10);
     rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
-    //rightTalon.config_kD(0, 0, 10);	
     rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
 		
 		new SensorCollection(leftTalon);
@@ -150,13 +144,14 @@ public class DriveTrain extends Subsystem {
   
   public double getLeftEncoderTicks() {
 		/* CTRE Magnetic Encoder relative, same as Quadrature */
-		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
-		return leftTalon.getSelectedSensorPosition(0);
+    //leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+    return -leftTalon.getSelectedSensorPosition(0);
+    //TODO: ENCODERS ARE BACKWARDS. TEMP FIX. TELL CONTROLS
 	}
 
 	public double getRightEncoderTicks() {
-		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
-		return rightTalon.getSelectedSensorPosition(0);
+		//rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		return -rightTalon.getSelectedSensorPosition(0);
   }
 
   public void automaticShifting(){
@@ -166,8 +161,8 @@ public class DriveTrain extends Subsystem {
     } else {}
   }  
   public void setVolts(double leftSpeed, double rightSpeed) {
-    leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.2);
-    rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.2);
+    leftTalon.set(ControlMode.PercentOutput, (leftSpeed * 0.2));
+    rightTalon.set(ControlMode.PercentOutput, (rightSpeed * 0.2));
   }
   public void stopVolts() {
     leftTalon.set(ControlMode.PercentOutput, 0);
@@ -175,12 +170,27 @@ public class DriveTrain extends Subsystem {
   }
 
   public void resetEncoders() {
-		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		//leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
-		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
+		//rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		rightTalon.setSelectedSensorPosition(0, 0, 10);
 		System.out.println("Encoders reset!");
-	}
+  }
+  
+  public void setMotorToPosition(double leftTicks, double rightTicks) {
+    leftTalon.set(ControlMode.Position, leftTicks);
+    rightTalon.set(ControlMode.Position, rightTicks);
+  }
+
+  public void updatePIDValues() {
+    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 1), 10);
+    leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
+
+    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 1), 10);
+    rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
+  }
 
   @Override
   public void initDefaultCommand() {
@@ -188,8 +198,8 @@ public class DriveTrain extends Subsystem {
   }
 
   public void updateSmartDashboard() {
-    //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
-    //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
+    SmartDashboard.putNumber("LeftEncoderCount", getLeftEncoderTicks());
+    SmartDashboard.putNumber("RightEncoderCount", getRightEncoderTicks());
     SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
     SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);
