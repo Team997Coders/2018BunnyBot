@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,10 +32,21 @@ public class FrontHopper extends Subsystem {
 
 
   }
+  public void setVolts(double volts){
+    frontHopperMotor1.set(ControlMode.PercentOutput, volts);
+    frontHopperMotor2.set(ControlMode.PercentOutput, volts);
+  }
+  
+  public void stopVolts(){
+    frontHopperMotor1.set(ControlMode.PercentOutput, 0);
+    frontHopperMotor2.set(ControlMode.PercentOutput, 0);
+  }
 
  
   @Override
-  public void initDefaultCommand() {}
+  public void initDefaultCommand() {
+
+  }
   
   public void updateSmartDashboard(){
     SmartDashboard.putData("Enable FrontHopper", new FrontHopper());

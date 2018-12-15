@@ -21,7 +21,7 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.ADriveForward;
 
-import frc.robot.commands.FrontHopper;
+import frc.robot.subsystems.FrontHopper;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.BackHopper;
 

@@ -30,7 +30,7 @@ public class BackHopper extends Subsystem {
     motor.set(volts);
   }
   
-  public void stopVolts(double volts){
+  public void stopVolts(){
     motor.set(0);
   }
 

@@ -40,7 +40,7 @@ public class FrontHopper extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.frontHopper.stopVolts(0);
+    Robot.frontHopper.stopVolts();
   }
 
   // Called when another command which requires one or more of the same
