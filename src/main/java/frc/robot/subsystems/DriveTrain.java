@@ -174,9 +174,14 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftEncoderRate() >= 6 && getRightEncoderRate() >= 6 && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
-      setGear(true);
-      lastGearState = true;
+    if (getLeftEncoderRate() >= shiftVelocityUp && getRightEncoderRate() >= shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+      //1.02335 = 10.55 *.97/10 
+      //units --> ft/(100ms)
+        setGear(true);
+        lastGearState = true;
+    } else if (getLeftEncoderRate() <= shiftVelocityUp && getRightEncoderRate() <= shiftVelocityUp && lastGearState == true /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+        setGear(false);
+        lastGearState = false;
     } else {}
   }
 

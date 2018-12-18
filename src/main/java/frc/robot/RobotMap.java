@@ -58,6 +58,8 @@ public class RobotMap {
     intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
     outtakeMotorPort = 7,
     ButtonB = 1,
-    ButtonX = 2;
+    ButtonX = 2,
+    shiftVelocityUp = 1.02335;
+
   }
 }
