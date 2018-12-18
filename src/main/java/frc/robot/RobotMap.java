@@ -50,6 +50,7 @@ public class RobotMap {
     ButtonB = 1,
     ButtonX = 2,
     ButtonA =;
+    //TODO: Map actual port value for Button A
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }
