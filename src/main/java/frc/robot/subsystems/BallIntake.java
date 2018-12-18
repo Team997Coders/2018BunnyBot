@@ -32,9 +32,11 @@ public class BallIntake extends Subsystem {
     
 public void collect(){
   intakeMotor.set(ControlMode.PercentOutput, 1.0);
+  System.out.println("yay");
 }
 
 public void stop(){
+  
   intakeMotor.set(ControlMode.PercentOutput, 0);
 }
 

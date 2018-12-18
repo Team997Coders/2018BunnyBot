@@ -18,6 +18,7 @@ public class RobotMap {
   public static class Ports {
     public static final int
     gamepad1 = 0,
+    gamepad2 = 1,
     g1_leftYAxis = 1,
     g1_rightXAxis = 4,
     g1_rightYAxis = 5,
@@ -45,7 +46,8 @@ public class RobotMap {
     intakeMotorPort = 8,
     outtakeMotorPort = 7,
     ButtonB = 1,
-    ButtonX = 2;
+    ButtonX = 2,
+    Button2 = 2;
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }

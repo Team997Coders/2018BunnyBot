@@ -188,8 +188,8 @@ public class DriveTrain extends Subsystem {
   }
 
   public void setVolts(double leftSpeed, double rightSpeed) {
-    leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.2);
-    rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.2);
+    leftTalon.set(ControlMode.PercentOutput, (leftSpeed) * 0.2);
+    rightTalon.set(ControlMode.PercentOutput, (rightSpeed) * 0.2);
   }
     
   public void stopVolts() {

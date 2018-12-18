@@ -65,11 +65,7 @@ public class Robot extends TimedRobot {
     chooser.addObject("Go to Angle P", new PDriveToAngle(-90));
     chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
     chooser.addObject("Got to 90 degress", new TurnToAngle(90));
-    chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-    chooser.addObject("Go Forward Nerd", new ADriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
-    SmartDashboard.putData("Auto commands", chooser);
-    SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
     chooser.addObject("Simple Auto", new SimpleAuto());
   
   }
@@ -93,6 +89,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    driveTrain.resetEncoders();
   }
 
   @Override

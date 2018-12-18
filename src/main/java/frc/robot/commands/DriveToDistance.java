@@ -27,7 +27,7 @@ public class DriveToDistance extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.setVolts(.5, .5);
+    Robot.driveTrain.setVolts(1, 1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
