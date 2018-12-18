@@ -20,7 +20,8 @@ public class BackHopper extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public VictorSP motor;  
+  public VictorSP motor; 
+  backHopperState = new Boolean;
 
   public BackHopper() {
     motor = new VictorSP(RobotMap.Ports.backHopperPort);

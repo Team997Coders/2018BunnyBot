@@ -29,6 +29,9 @@ public class OI {
     eject.whileHeld(new EjectBalls());
     JoystickButton shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
     shift.whenPressed(new GearShift());
+
+    gamepad1 = new JoystickButton(gamepad1, RobotMap.Ports.ButtonA);
+    toggle.whenPressed(new toggleHoppers());
   }
 
   public double getRightYAxis() {

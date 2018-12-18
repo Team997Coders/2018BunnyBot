@@ -176,5 +176,10 @@ public class Robot extends TimedRobot {
   public void updateSmartDashboard(){
     driveTrain.updateSmartDashboard();
   }
+  public void toggleHoppers(){
+    frontHopper.stopVolts();
+    backHiooer.stopVolts();
+  }
+
 
 }
