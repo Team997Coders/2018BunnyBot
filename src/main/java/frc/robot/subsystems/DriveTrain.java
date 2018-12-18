@@ -142,7 +142,7 @@ public class DriveTrain extends Subsystem {
   }
   
   public void setGear(boolean gearState) {
-    if (lastGearState != gearState){
+    /*if (lastGearState != gearState){
       if (gearState) {
         shiftSolenoid.set(Value.kReverse);
       } else {
@@ -151,15 +151,15 @@ public class DriveTrain extends Subsystem {
 
       lastGearState = gearState;
       System.out.println(lastGearState);
-    }
+    } COMMENTED OUT BECAUSE NO PNEUMATICS :() */
   }
 
   public double getLeftEncoderRate() {
-		return leftTalon.getSelectedSensorVelocity(0);
+		return (leftTalon.getSelectedSensorVelocity(0) / RobotMap.Values.ticksPerFoot) * 10;
 	}
 
 	public double getRightEncoderRate() {
-		return rightTalon.getSelectedSensorVelocity(0);
+		return (rightTalon.getSelectedSensorVelocity(0) / RobotMap.Values.ticksPerFoot) * 10;
   }
   
   public double getLeftEncoderTicks() {
@@ -174,14 +174,16 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftEncoderRate() >= shiftVelocityUp && getRightEncoderRate() >= shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+    if (getLeftEncoderRate() >= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() >= RobotMap.Values.shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
       //1.02335 = 10.55 *.97/10 
       //units --> ft/(100ms)
+        System.out.println("I shifted up!");
         setGear(true);
         lastGearState = true;
-    } else if (getLeftEncoderRate() <= shiftVelocityUp && getRightEncoderRate() <= shiftVelocityUp && lastGearState == true /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+    } else if (getLeftEncoderRate() <= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() <= RobotMap.Values.shiftVelocityUp && lastGearState == true /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
         setGear(false);
         lastGearState = false;
+        System.out.println("I shifted down!");
     } else {}
   }
 
@@ -224,6 +226,8 @@ public class DriveTrain extends Subsystem {
     //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());
   public void updateSmartDashboard(){
     SmartDashboard.putNumber("LeftEncoderRate", getLeftEncoderRate());
+    SmartDashboard.putNumber("Left encoder count", getLeftEncoderTicks());
+    SmartDashboard.putNumber("Right encoder count", getRightEncoderTicks());
     SmartDashboard.putNumber("RightEncoderRate", getRightEncoderRate());
     SmartDashboard.putBoolean("Gear", lastGearState);
     SmartDashboard.putNumber("Accelerometer X", accelerometer.getX());

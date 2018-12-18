@@ -51,7 +51,7 @@ public class RobotMap {
   }
   public class Values{
     public static final double
-    ticksPerFoot = 1/7565,
+    ticksPerFoot = 4490.5,
     DriveAngleP = .01,
     DriveToDistanceMargin = 50,
     DriveP = 0, //.00002
@@ -59,7 +59,8 @@ public class RobotMap {
     outtakeMotorPort = 7,
     ButtonB = 1,
     ButtonX = 2,
-    shiftVelocityUp = 1.02335;
+    //shiftVelocityUp = 10.55* .97;
+    shiftVelocityUp = 1;
 
   }
 }

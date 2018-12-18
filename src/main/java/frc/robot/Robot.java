@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    //driveTrain.automaticShifting();
+    driveTrain.automaticShifting();
     updateSmartDashboard();
   }
 
