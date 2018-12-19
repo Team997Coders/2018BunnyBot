@@ -18,6 +18,7 @@ public class RobotMap {
   public static class Ports {
     public static final int
     gamepad1 = 0,
+    gamepad2 = 1,
     g1_leftYAxis = 1,
     g1_rightXAxis = 4,
     g1_rightYAxis = 5,
@@ -40,12 +41,12 @@ public class RobotMap {
     ballEjectorMotorPort = 9,
     gearPistonFor = 2,
     gearPistonRev = 3,
-    ButtonY = 3,
+    ButtonY = 4,
     
-    intakeMotorPort = 8,
-    outtakeMotorPort = 7,
-    ButtonB = 1,
-    ButtonX = 2;
+    intakeMotorPort = 7,
+    outtakeMotorPort = 8,
+    ButtonB = 2,
+    ButtonX = 3;
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }
@@ -55,10 +56,10 @@ public class RobotMap {
     DriveAngleP = .01,
     DriveToDistanceMargin = 50,
     DriveP = 0, //.00002
-    intakeMotorPort = 8, //Temporarily flipped before we fix version issues.
-    outtakeMotorPort = 7,
+    intakeMotorPort = 7, //Temporarily flipped before we fix version issues.
+    outtakeMotorPort = 8,
     ButtonB = 1,
-    ButtonX = 2,
+    ButtonX = 3,
     //shiftVelocityUp = 10.55* .97;
     shiftVelocityUp = 1;
 
