@@ -155,11 +155,11 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getLeftEncoderRate() {
-		return leftTalon.getSelectedSensorVelocity(0);
+		return (leftTalon.getSelectedSensorVelocity(0) / RobotMap.Values.ticksPerFoot) * 10;
 	}
 
 	public double getRightEncoderRate() {
-		return rightTalon.getSelectedSensorVelocity(0);
+		return (rightTalon.getSelectedSensorVelocity(0) / RobotMap.Values.ticksPerFoot) * 10;
   }
   
   public double getLeftEncoderTicks() {
@@ -172,7 +172,19 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		return rightTalon.getSelectedSensorPosition(0);
   }
-
+  public void automaticShifting(){
+    if (getLeftEncoderRate() >= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() >= RobotMap.Values.shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+      //1.02335 = 10.55 *.97/10 
+      //units --> ft/(100ms)
+        System.out.println("I shifted up!");
+        setGear(true);
+        lastGearState = true;
+    } else if (getLeftEncoderRate() <= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() <= RobotMap.Values.shiftVelocityUp && lastGearState == true /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+        setGear(false);
+        lastGearState = false;
+        System.out.println("I shifted down!");
+    } else {}
+  }
   public void automaticShifting(){
     if (getLeftEncoderRate() >= 6 && getRightEncoderRate() >= 6 && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
       setGear(true);

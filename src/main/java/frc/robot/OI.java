@@ -17,6 +17,7 @@ import frc.robot.commands.*;
 public class OI {
 
   Joystick gamepad1;
+  Joystick gamepad2;
   JoystickButton collect;
   JoystickButton eject;
   // JoystickButton shift;
