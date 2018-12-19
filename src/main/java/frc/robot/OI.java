@@ -32,6 +32,8 @@ public class OI {
 
     gamepad1 = new JoystickButton(gamepad1, RobotMap.Ports.ButtonA);
     toggle.whenPressed(new toggleHoppers());
+    gamepad1 = new JoystickButton(gamepad1, RobotMap.Ports.)
+    toggle.whenPressed(new OutTake());
   }
 
   public double getRightYAxis() {

@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
     intake = new BallIntake();
     frontHopper = new FrontHopper();
     backHopper = new BackHopper();
+    outTake = new OutTake();
     oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());

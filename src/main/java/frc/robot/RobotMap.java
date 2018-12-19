@@ -49,7 +49,7 @@ public class RobotMap {
     outtakeMotorPort = 7,
     ButtonB = 1,
     ButtonX = 2,
-    ButtonA =;
+    ButtonA =0;
     //TODO: Map actual port value for Button A
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
