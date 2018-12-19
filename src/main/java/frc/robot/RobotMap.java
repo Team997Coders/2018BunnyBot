@@ -47,7 +47,10 @@ public class RobotMap {
     ButtonB = 1,
     ButtonX = 2,
 
-    DigOut = 0;
+    DigOut = 0,
+
+    ballSensor = 0,
+    solenoid = 0;
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }
   public class Values{
