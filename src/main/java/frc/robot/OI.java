@@ -19,6 +19,7 @@ public class OI {
   Joystick gamepad1;
   Joystick gamepad2;
   JoystickButton collect;
+  JoystickButton shift;
   JoystickButton eject;
   // JoystickButton shift;
 
@@ -29,8 +30,12 @@ public class OI {
     collect.whileHeld(new CollectBalls());
     eject = new JoystickButton(gamepad2, RobotMap.Ports.ButtonX);
     eject.whileHeld(new EjectBalls());
-    JoystickButton shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+
+    shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
     shift.whenPressed(new GearShift());
+
+
+
   }
 
   public double getRightYAxis() {
