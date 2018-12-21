@@ -17,7 +17,7 @@ import frc.robot.commands.*;
 public class OI {
 
   Joystick gamepad1;
-  Joystick gamepad2;
+  //Joystick gamepad2;
   JoystickButton collect;
   JoystickButton shift;
   JoystickButton eject;
@@ -26,10 +26,10 @@ public class OI {
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
-    gamepad2 = new Joystick(RobotMap.Ports.gamepad2);
-    collect = new JoystickButton(gamepad2, RobotMap.Ports.ButtonA);
+    //gamepad2 = new Joystick(RobotMap.Ports.gamepad2);
+    collect = new JoystickButton(gamepad1, RobotMap.Ports.ButtonA);
     collect.whileHeld(new CollectBalls());
-    eject = new JoystickButton(gamepad2, RobotMap.Ports.ButtonB);
+    eject = new JoystickButton(gamepad1, RobotMap.Ports.ButtonB);
     eject.whileHeld(new EjectBalls());
 
     shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);

@@ -31,7 +31,7 @@ public class BallIntake extends Subsystem {
   }
     
 public void collect(){
-  intakeMotor.set(ControlMode.PercentOutput, 1.0);
+  intakeMotor.set(ControlMode.PercentOutput, 0.7);
 }
 
 public void stop(){
@@ -39,7 +39,7 @@ public void stop(){
 }
 
 public void eject(){
-  intakeMotor.set(ControlMode.PercentOutput, -1.0);
+  intakeMotor.set(ControlMode.PercentOutput, -0.7);
 }
  
   @Override

@@ -14,9 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.VictorSP;
-
-
+//import edu.wpi.first.wpilibj.VictorSP;
 
 public class FrontHopper extends Subsystem {
  
@@ -29,8 +27,6 @@ public class FrontHopper extends Subsystem {
     frontHopperMotor2.configPeakOutputForward(1, 10);
     //frontHopperMotor1.configPeakOutPut(1.0);
     frontHopperMotor1.configPeakOutputForward(1, 10);
-
-
   }
   public void setVolts(double volts){
     frontHopperMotor1.set(ControlMode.PercentOutput, volts);
