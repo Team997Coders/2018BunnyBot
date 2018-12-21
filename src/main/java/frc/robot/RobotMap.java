@@ -30,6 +30,9 @@ public class RobotMap {
     leftVictor2Port = 2,
     rightVictor1Port = 3,
     rightVictor2Port = 4,
+    backHopperPort = 8,
+    FrontHopperMotorPort1= 5,
+    FrontHopperMotorPort2=6,
 
     leftEncoderChannelA = 8,
     leftEncoderChannelB = 9,
@@ -41,12 +44,13 @@ public class RobotMap {
     ballEjectorMotorPort = 9,
     gearPistonFor = 2,
     gearPistonRev = 3,
-    ButtonY = 4,
     
     intakeMotorPort = 7,
     outtakeMotorPort = 8,
+    ButtonA = 1,
     ButtonB = 2,
-    ButtonX = 3;
+    ButtonX = 3,
+    ButtonY = 4;
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }

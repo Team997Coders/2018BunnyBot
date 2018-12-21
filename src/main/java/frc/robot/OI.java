@@ -21,21 +21,22 @@ public class OI {
   JoystickButton collect;
   JoystickButton shift;
   JoystickButton eject;
+  JoystickButton toggle;
   // JoystickButton shift;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
     gamepad2 = new Joystick(RobotMap.Ports.gamepad2);
-    collect = new JoystickButton(gamepad2, RobotMap.Ports.ButtonB);
+    collect = new JoystickButton(gamepad2, RobotMap.Ports.ButtonA);
     collect.whileHeld(new CollectBalls());
-    eject = new JoystickButton(gamepad2, RobotMap.Ports.ButtonX);
+    eject = new JoystickButton(gamepad2, RobotMap.Ports.ButtonB);
     eject.whileHeld(new EjectBalls());
 
-    shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+    shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
     shift.whenPressed(new GearShift());
 
-
-
+    toggle = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+    toggle.whenPressed(new toggleHoppers());
   }
 
   public double getRightYAxis() {

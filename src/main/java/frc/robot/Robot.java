@@ -7,19 +7,15 @@
 
 package frc.robot;
 
-import frc.robot.commands.PDriveToDistance;
 import frc.robot.subsystems.BallIntake;
-import frc.robot.commands.DriveToDistance;
-import frc.robot.commands.PDriveToAngle;
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.TurnToAngle;
-import frc.robot.commands.SimpleAuto;
-import frc.robot.commands.ADriveForward;
+import frc.robot.commands.*;
+
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +28,8 @@ public class Robot extends TimedRobot {
   public static DriveTrain driveTrain;
   public static OI oi;
   public static BallIntake intake;
+  public static FrontHopper frontHopper;
+  public static BackHopper backHopper;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -55,6 +53,8 @@ public class Robot extends TimedRobot {
 
     driveTrain = new DriveTrain();
     intake = new BallIntake();
+    frontHopper = new FrontHopper();
+    backHopper = new BackHopper();
     oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Scheduler.getInstance().add(new toggleHoppers(false));
   }
 
   @Override
@@ -124,9 +125,14 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
+
+    
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+
+    Scheduler.getInstance().add(new toggleHoppers(true));
   }
 
   /**
@@ -147,6 +153,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    Scheduler.getInstance().add(new toggleHoppers(true));
   }
 
   /**
@@ -168,5 +176,10 @@ public class Robot extends TimedRobot {
   public void updateSmartDashboard(){
     driveTrain.updateSmartDashboard();
   }
+  public void toggleHoppers(){
+    frontHopper.stopVolts();
+    backHopper.stopVolts();
+  }
+
 
 }
