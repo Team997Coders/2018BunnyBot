@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
   public static BallIntake intake;
   public static FrontHopper frontHopper;
   public static BackHopper backHopper;
-
+  public static OutTake outtake;
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
     frontHopper = new FrontHopper();
     backHopper = new BackHopper();
     oi = new OI();
+    outtake = new OutTake();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
