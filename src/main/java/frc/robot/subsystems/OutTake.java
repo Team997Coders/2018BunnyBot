@@ -9,33 +9,37 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.VictorSP;
+import frc.robot.RobotMap;
+import frc.robot.commands.OutTakeBalls;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Add your docs here.
  */
-public class outTake extends Subsystem {
+public class OutTake extends Subsystem {
 
   public VictorSP outTakeMotor;
 
   public OutTake(){
-    outTakeMotor = new VictorSP(RobotMap.Ports.outTakeMotorPort);
+    outTakeMotor = new VictorSP(RobotMap.Ports.outtakeMotorPort);
 
   }
-  public void Shoot(){
-    outTakeMotor.set(ControlMode.PercentOutPut, 1.0);
+  public void shoot(){
+    outTakeMotor.set(1.0);
 
   }
   public void stop(){
-    outTakeMotor.set(ControlMode.PercentOutPut, 0);
+    outTakeMotor.set(0);
 
   }
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
+
 public void updateSmartDashboard(){
     SmartDashboard.putData("OutTake", new OutTakeBalls());
 }

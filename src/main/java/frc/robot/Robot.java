@@ -20,10 +20,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.ADriveForward;
-
-import frc.robot.subsystems.FrontHopper;
-import frc.robot.subsystems.BallIntake;
-import frc.robot.subsystems.BackHopper;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +35,7 @@ public class Robot extends TimedRobot {
   public static BallIntake intake;
   public static FrontHopper frontHopper;
   public static BackHopper backHopper;
+  public static OutTake outtake;
 
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -63,7 +61,7 @@ public class Robot extends TimedRobot {
     intake = new BallIntake();
     frontHopper = new FrontHopper();
     backHopper = new BackHopper();
-    outTake = new OutTake();
+    outtake = new OutTake();
     oi = new OI();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
@@ -179,7 +177,7 @@ public class Robot extends TimedRobot {
   }
   public void toggleHoppers(){
     frontHopper.stopVolts();
-    backHiooer.stopVolts();
+    backHopper.stopVolts();
   }
 
 
