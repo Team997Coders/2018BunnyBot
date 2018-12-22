@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.subsystems.DriveTrain;
-
+import frc.robot.misc.*;
+import edu.wpi.first.networktables.*;
 
 import frc.robot.subsystems.*;
 
@@ -31,6 +32,16 @@ public class Robot extends TimedRobot {
   public static FrontHopper frontHopper;
   public static BackHopper backHopper;
   public static OutTake outtake;
+  public static Sorter sorter;
+  public static NetworkTableInstance inst;
+  public static NetworkTable table;
+  public static NetworkTableEntry ballType;
+  
+  public static boolean sortingBalls = true;
+
+  public static String allianceColor = "blue"; //for our alliance
+  public static String allianceColorEditable = "R"; 
+
   Command m_autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -57,6 +68,7 @@ public class Robot extends TimedRobot {
     backHopper = new BackHopper();
     oi = new OI();
     outtake = new OutTake();
+    sorter = new Sorter();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
@@ -69,10 +81,14 @@ public class Robot extends TimedRobot {
     chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
     chooser.addObject("Go Forward Nerd", new ADriveForward());
     chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
+    chooser.addObject("Sort things", new Sortstuff(false, sorter));
     SmartDashboard.putData("Auto commands", chooser);
     SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
     chooser.addObject("Simple Auto", new SimpleAuto());
   
+    /*inst = NetworkTableInstance.create();
+    table = inst.getTable("fakecam");
+    ballType = table.getEntry("ball");*/
   }
 
   /**
@@ -101,6 +117,14 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
     updateSmartDashboard();
+
+    if (SmartDashboard.getString("PUT ALLIANCE COLOR HERE (R | B)", "null").startsWith("R")) {
+      allianceColor = "red";
+    } else if (SmartDashboard.getString("PUT ALLIANCE COLOR HERE (R | B)", "null").startsWith("B")) {
+      allianceColor = "blue";
+    } else {
+      allianceColor = SmartDashboard.getString("PUT ALLIANCE COLOR HERE (R | B)", "null");
+    }
   }
 
   /**

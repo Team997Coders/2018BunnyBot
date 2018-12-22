@@ -109,23 +109,6 @@ public class DriveTrain extends Subsystem {
 		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
 		//rightTalon.configOpenloopRamp(0.25, 10);
 		
-		/* set closed loop gains in slot0 
-		leftTalon.config_kF(0, 0.1097, 10);
-    //leftTalon.config_kP(0, 0.113333, 10);
-    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
-    //leftTalon.config_kI(0, 0, 10);
-    leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
-    //leftTalon.config_kD(0, 0, 10);		
-    leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
-
-		rightTalon.config_kF(0, 0.1097, 10);
-    //rightTalon.config_kP(0, 0.113333, 10);
-    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
-    //rightTalon.config_kI(0, 0, 10);
-    rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
-    //rightTalon.config_kD(0, 0, 10);	
-    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);*/
-		
 		new SensorCollection(leftTalon);
 		new SensorCollection(rightTalon);
 
@@ -231,7 +214,7 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
       setDefaultCommand(new ArcadeDrive());
-    }
+  }
 
     //SmartDashboard.putNumber("LeftEncoderCount", leftEncoder.get());
     //SmartDashboard.putNumber("RightEncoderCount", rightEncoder.get());

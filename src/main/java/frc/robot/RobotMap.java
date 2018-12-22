@@ -44,6 +44,11 @@ public class RobotMap {
     ballEjectorMotorPort = 9,
     gearPistonFor = 2,
     gearPistonRev = 3,
+
+    leftSorterMotor = 1,
+    rightSorterMotor = 3,
+    sorterPiston = 2,
+    ballSensor = 3,
     
     intakeMotorPort = 7,
     outtakeMotorPort = 8,
