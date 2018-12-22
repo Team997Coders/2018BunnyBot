@@ -26,7 +26,11 @@ public class TankDrive extends Command {
     double leftVolts = (Robot.oi.getLeftYAxis());
     double rightVolts = (Robot.oi.getRightYAxis());
 
-    Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    if (Robot.driveTrain.revDir) {
+      Robot.driveTrain.setVolts(-leftVolts, -rightVolts);
+    } else {
+      Robot.driveTrain.setVolts(leftVolts, rightVolts);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

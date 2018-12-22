@@ -25,6 +25,8 @@ import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends Subsystem {
+
+  public boolean revDir = false;
  
   public TalonSRX leftTalon, rightTalon;
   //private Encoder leftEncoder, rightEncoder;

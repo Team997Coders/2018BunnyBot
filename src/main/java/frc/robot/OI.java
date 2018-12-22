@@ -18,8 +18,13 @@ public class OI {
 
   Joystick gamepad1;
   Joystick gamepad2;
-  JoystickButton collect;
+
+  // GamePad 1
   JoystickButton shift;
+  JoystickButton reverse;
+
+  // GamePad 2
+  JoystickButton collect;
   JoystickButton eject;
   JoystickButton outtake;
   JoystickButton toggle;
@@ -31,6 +36,9 @@ public class OI {
 
     shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
     shift.whenPressed(new GearShift());
+
+    reverse = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
+    reverse.whenPressed(new SwapDirection());
 
     collect = new JoystickButton(gamepad2, RobotMap.Ports.ButtonA);
     collect.whileHeld(new CollectBalls());
