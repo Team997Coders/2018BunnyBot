@@ -8,27 +8,19 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.VictorSP;
 import frc.robot.RobotMap;
 import frc.robot.Robot;
-import frc.robot.commands.AutoDefault;
-import frc.robot.commands.Sortstuff;
 import java.util.Queue;
 import java.util.LinkedList;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.MjpegServer;
 import frc.robot.misc.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.tables.*;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CameraServer;
 
 import java.util.concurrent.TimeUnit;
 

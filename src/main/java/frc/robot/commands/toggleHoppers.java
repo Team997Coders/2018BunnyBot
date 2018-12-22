@@ -15,8 +15,10 @@ public class toggleHoppers extends Command {
   static boolean state = false;
 
   public toggleHoppers() {
+    //TODO: EXTREMELY JANK
     requires(Robot.frontHopper);
     requires(Robot.backHopper);
+    requires(Robot.sorter);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     if (state) {
@@ -29,6 +31,7 @@ public class toggleHoppers extends Command {
   public toggleHoppers(boolean _state) {
     requires(Robot.frontHopper);
     requires(Robot.backHopper);
+    requires(Robot.sorter);
 
     state = _state;
   }
@@ -43,6 +46,7 @@ public class toggleHoppers extends Command {
   protected void execute() {
     Robot.frontHopper.setVolts(-.48);
     Robot.backHopper.setVolts(-.48);
+    Robot.sorter.setMotor(-0.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -57,6 +61,7 @@ public class toggleHoppers extends Command {
     if (!state) {
       Robot.frontHopper.stopVolts();
       Robot.backHopper.stopVolts();
+      Robot.sorter.stopMotors();
     }
   }
 

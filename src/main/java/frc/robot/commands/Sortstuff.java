@@ -7,16 +7,11 @@
 
 package frc.robot.commands;
 
-import java.util.Queue;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.subsystems.Sorter;
 import java.util.concurrent.*;
-import static java.lang.System.nanoTime;
 
 public class Sortstuff extends Command {
 
