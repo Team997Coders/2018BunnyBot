@@ -184,6 +184,10 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().add(new toggleHoppers(true));
   }
 
+  public static double feetToTicks(double a) {
+    return a * RobotMap.Values.ticksPerFoot;
+  }
+
   /**
    * This function is called periodically during operator control.
    */

@@ -47,7 +47,7 @@ public class PDriveToDistance extends Command {
   @Override
   protected boolean isFinished() {
     if (Math.abs(Error-Robot.driveTrain.getAverageTicks()) <= 75){
-    return true;
+      return true;
     }
     return false;
   }

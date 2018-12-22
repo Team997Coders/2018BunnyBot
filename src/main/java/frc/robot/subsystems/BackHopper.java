@@ -28,11 +28,11 @@ public class BackHopper extends Subsystem {
   }
 
   public void setVolts(double volts){
-    motor.set(volts);
+    //motor.set(volts);
   }
   
   public void stopVolts(){
-    motor.set(0);
+    //motor.set(0);
   }
 
   @Override
