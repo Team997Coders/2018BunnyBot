@@ -55,7 +55,8 @@ public class RobotMap {
     ButtonA = 1,
     ButtonB = 2,
     ButtonX = 3,
-    ButtonY = 4;
+    ButtonY = 4,
+    ButtonStart = 8;
 
     public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
   }

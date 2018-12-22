@@ -37,11 +37,11 @@ public class BunnyEjector extends Subsystem {
   public void stopEjector(){
     bunnyEjectorSolenoid.set(Value.kOff);
   }
+  
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
+
   public void bunnyEjectorDashBoard(){
     SmartDashboard.putBoolean("BunnyState", ejected);
   }

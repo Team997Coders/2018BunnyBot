@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
   public static BackHopper backHopper;
   public static OutTake outtake;
   public static Sorter sorter;
+  public static BunnyEjector bunnyEjector;
   public static NetworkTableInstance inst;
   public static NetworkTable table;
   public static NetworkTableEntry ballType;
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
     outtake = new OutTake();
     sorter = new Sorter();
+    bunnyEjector = new BunnyEjector();
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
