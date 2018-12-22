@@ -18,7 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
@@ -26,15 +26,15 @@ import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends Subsystem {
  
-  private TalonSRX leftTalon, rightTalon;
+  public TalonSRX leftTalon, rightTalon;
   //private Encoder leftEncoder, rightEncoder;
   public boolean lastGearState;
   private DoubleSolenoid shiftSolenoid;
   public double leftRate;
   public double rightRate;
 	//temp
-  private VictorSPX leftVictor1, leftVictor2;
-  private VictorSPX rightVictor1, rightVictor2;
+  public VictorSPX leftVictor1, leftVictor2;
+  public VictorSPX rightVictor1, rightVictor2;
   
   private AHRS gyro;
   public  double initangle;
@@ -109,7 +109,7 @@ public class DriveTrain extends Subsystem {
 		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
 		//rightTalon.configOpenloopRamp(0.25, 10);
 		
-		/* set closed loop gains in slot0 */
+		/* set closed loop gains in slot0 
 		leftTalon.config_kF(0, 0.1097, 10);
     //leftTalon.config_kP(0, 0.113333, 10);
     leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
@@ -124,7 +124,7 @@ public class DriveTrain extends Subsystem {
     //rightTalon.config_kI(0, 0, 10);
     rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
     //rightTalon.config_kD(0, 0, 10);	
-    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
+    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);*/
 		
 		new SensorCollection(leftTalon);
 		new SensorCollection(rightTalon);
@@ -175,8 +175,6 @@ public class DriveTrain extends Subsystem {
 
   public void automaticShifting(){
     if (getLeftEncoderRate() >= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() >= RobotMap.Values.shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
-      //1.02335 = 10.55 *.97/10 
-      //units --> ft/(100ms)
         System.out.println("I shifted up!");
         setGear(true);
         lastGearState = true;
@@ -216,6 +214,19 @@ public class DriveTrain extends Subsystem {
   public double getAverageTicks() {
       return ((getLeftEncoderTicks() + getRightEncoderTicks())/2);
     }
+  
+  
+  public void updatePIDValues() {
+    leftTalon.config_kF(0, 0.1097, 10);
+    leftTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    leftTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);		
+    leftTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
+
+		rightTalon.config_kF(0, 0.1097, 10);
+    rightTalon.config_kP(0, SmartDashboard.getNumber("P", 0), 10);
+    rightTalon.config_kI(0, SmartDashboard.getNumber("I", 0), 10);
+    rightTalon.config_kD(0, SmartDashboard.getNumber("D", 0), 10);
+  }
 
   @Override
   public void initDefaultCommand() {

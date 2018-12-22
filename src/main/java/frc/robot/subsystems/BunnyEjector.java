@@ -25,8 +25,7 @@ public class BunnyEjector extends Subsystem {
   public boolean ejected = false;
   
   public BunnyEjector(){
-    // TODO: need to input the motor controller (not avalible as of 5:30 pm 10/19/2018)
-    // TODO: assign correct port information for the bunnyEjectorSolenoid in RobotMap.java
+    
     bunnyEjectorSolenoid = new DoubleSolenoid(RobotMap.Ports.bunnyEjectorSolenoidPort1, RobotMap.Ports.bunnyEjectorSolenoidPort2); 
   
     //ejected = this.ejectedState;

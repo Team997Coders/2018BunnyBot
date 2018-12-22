@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.*;
+
 
 import frc.robot.subsystems.*;
 
@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = chooser.getSelected();
+    driveTrain.updatePIDValues();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -177,10 +178,4 @@ public class Robot extends TimedRobot {
   public void updateSmartDashboard(){
     driveTrain.updateSmartDashboard();
   }
-  public void toggleHoppers(){
-    frontHopper.stopVolts();
-    backHopper.stopVolts();
-  }
-
-
 }

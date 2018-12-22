@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+
 
 import edu.wpi.first.wpilibj.VictorSP;
 import frc.robot.RobotMap;
