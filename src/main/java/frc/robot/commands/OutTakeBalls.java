@@ -8,11 +8,12 @@ import frc.robot.Robot;
 
 public class OutTakeBalls extends Command {
 
-  private double timeout;
+  private double timeout = 0;
   private Timer timer;
 
   public OutTakeBalls() {
     requires(Robot.outtake);
+    timer = new Timer();
   }
 
   public OutTakeBalls(double timeout) {
@@ -23,8 +24,11 @@ public class OutTakeBalls extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    timer.reset();
+    if (timeout != 0) {
+      timer.reset();
     timer.start();
+    }
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,7 +40,10 @@ public class OutTakeBalls extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (timer.get() > timeout) { return true; }
+
+    if (timeout == 0) {
+      return false;
+    } else if (timer.get() > timeout) { return true; }
     return false;
   }
 

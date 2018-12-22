@@ -21,18 +21,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.AnalogInput;
+import frc.robot.commands.SorterRunMotors;
+import frc.robot.commands.Sortstuff;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import java.util.concurrent.TimeUnit;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * Add your docs here.
  */
 public class Sorter extends Subsystem {
 
-  private VictorSP leftMotor = new VictorSP(RobotMap.Ports.leftSorterMotor);
-  private VictorSP rightMotor = new VictorSP(RobotMap.Ports.rightSorterMotor);
+  //private VictorSP leftMotor = new VictorSP(RobotMap.Ports.leftSorterMotor);
+  //private VictorSP rightMotor = new VictorSP(RobotMap.Ports.rightSorterMotor);
+  private TalonSRX motor = new TalonSRX(RobotMap.Ports.sorterMotor);
   private Solenoid piston = new Solenoid(RobotMap.Ports.sorterPiston);
-  //private DigitalInput ballSensor = new DigitalInput(RobotMap.Ports.ballSensor);
   private AnalogInput ballSensor = new AnalogInput(RobotMap.Ports.ballSensor);
 
   public UsbCamera camera0;
@@ -43,14 +48,27 @@ public class Sorter extends Subsystem {
 
   private boolean seenBall = false; //if true, robot has seen ball with camera, and is waiting for it to leave the fov.
   private boolean sortingBall = false; //if true and ball is not visible, sets to false and clears the first item in the queue.
+  private boolean jammedBall = false; //if true ball is in front of ballsensor;
   private Queue<String> ballQueue;
   private long oldTime;
   private long currentTime;
+  private long jammingTimeout;
   private int cameraBallCount; //mebe gonna be used to correct sync issues
 
   private NetworkTable cameraOutputTable;
 
   public Sorter() {
+
+    motor.configNominalOutputForward(0, 10);
+		motor.configNominalOutputReverse(0, 10);
+		//motor.configPeakOutputForward(1, 10);	//Use for PB
+		//motor.configPeakOutputReverse(-1, 10); //Use for PB
+		motor.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
+    motor.configPeakOutputReverse(-0.6, 10);
+    motor.configPeakCurrentLimit(40, 10);
+		motor.configPeakCurrentDuration(100, 10);
+		motor.configContinuousCurrentLimit(30, 10);
+    motor.enableCurrentLimit(true);
      // Init components
     ballQueue = new LinkedList<>();
     piston.setPulseDuration(0.05); //a test to see if i can get around some timing issues.
@@ -82,10 +100,15 @@ public class Sorter extends Subsystem {
       oldTime = currentTime;
     }
 
-    if (currentTime > (oldTime + 25 /*ms*/) && sortingBall) {
+    if (!getBallSensor()) {
+      jammingTimeout = currentTime;
+    }
+
+    if ((currentTime > (oldTime + 50) && sortingBall) && ((currentTime - jammingTimeout) < 300)) { //time in ms
       piston.startPulse();
       sortingBall = false;
     }
+
   }
 
   public void testCamera() {
@@ -138,7 +161,7 @@ public class Sorter extends Subsystem {
 
   }
 
-  public CameraOutput getCameraOutput() {
+  /*public CameraOutput getCameraOutput() { //deprecated
 
     Mat img = getImage();
 
@@ -151,26 +174,7 @@ public class Sorter extends Subsystem {
 
     CameraOutput output = new CameraOutput(redBall.getOutput().size(), blueBall.getOutput().rows());
     return output;
-    
-    //These methods are different because I picked the sketchy camera code to use. ^^^
-
-    //This stuff down here is deprecated in theory, but i doubt the new stuff works either. vvv
-
-
-    //boolean blue = false;
-
-    /*if (blueBall.getOutput().size().area() > 200) { // Pretty useless check but whatever
-      System.out.println("Blue ball detected greater than 200 size");
-      return Color.blue;
-
-    } else if (redBall.getOutput().size() > 0) {
-      if (redBall.getOutput().get(0).size().area() > 200) { // Pretty useless check but whatever
-        System.out.println("Red ball detected greater than 200 size");
-        return Color.red;
-
-      } else { return Color.NULL; }
-    } else { return Color.NULL; }*/
-  }
+  }*/
 
   public Mat getImage() { 
     Mat image = null;
@@ -207,13 +211,15 @@ public class Sorter extends Subsystem {
   }
 
   public void setMotor(double speed) {
-    leftMotor.set(-speed);
-    rightMotor.set(-speed);
+    //leftMotor.set(-speed);
+    //rightMotor.set(-speed);
+    motor.set(ControlMode.PercentOutput, (speed));
   }
 
   public void stopMotors() {
-    leftMotor.set(0);
-    rightMotor.set(0);
+    motor.set(ControlMode.PercentOutput, (0));
+    //leftMotor.set(0);
+    //rightMotor.set(0);
   }
 
   /*
@@ -247,8 +253,7 @@ public class Sorter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new Sortstuff(true, this)); //boolean verbose, which sorter to use;
-    
+    //setDefaultCommand(new SorterRunMotors(true, this)); //boolean verbose, which sorter to use; 
     
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

@@ -39,16 +39,17 @@ public class RobotMap {
     rightEncoderChannelA = 6,
     rightEncoderChannelB = 7,
 
-    bunnyEjectorSolenoidPort1 = 4,
-    bunnyEjectorSolenoidPort2 = 5,
+    bunnyEjectorSolenoidPort1 = 1,
+    bunnyEjectorSolenoidPort2 = 2,
     ballEjectorMotorPort = 9,
     gearPistonFor = 2,
     gearPistonRev = 3,
 
-    leftSorterMotor = 1,
-    rightSorterMotor = 3,
-    sorterPiston = 2,
-    ballSensor = 3,
+    //leftSorterMotor = 1,
+    //rightSorterMotor = 3,
+    sorterMotor = 8,
+    sorterPiston = 0,
+    ballSensor = 0,
     
     intakeMotorPort = 7,
     outtakeMotorPort = 8,

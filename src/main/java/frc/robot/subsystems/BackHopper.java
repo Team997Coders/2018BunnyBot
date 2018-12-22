@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.BackHopperIdle;
+//import frc.robot.commands.BackHopperIdle;
 
 /**
  * Add your docs here.
@@ -20,11 +20,11 @@ public class BackHopper extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public VictorSP motor; 
+  //public VictorSP motor; 
   public boolean backHopperState = false;
 
   public BackHopper() {
-    motor = new VictorSP(RobotMap.Ports.backHopperPort);
+    //motor = new VictorSP(RobotMap.Ports.backHopperPort);
   }
 
   public void setVolts(double volts){
@@ -39,7 +39,7 @@ public class BackHopper extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new BackHopperIdle());
+    //setDefaultCommand(new BackHopperIdle());
   }
   public void updateSmartDashboard(){
     SmartDashboard.putData("Enable BackHopper", new BackHopper());

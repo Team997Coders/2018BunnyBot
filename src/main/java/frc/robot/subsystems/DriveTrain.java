@@ -26,7 +26,7 @@ import frc.robot.commands.ArcadeDrive;
 
 public class DriveTrain extends Subsystem {
 
-  public boolean revDir = false;
+  public boolean revDir = true;
  
   public TalonSRX leftTalon, rightTalon;
   //private Encoder leftEncoder, rightEncoder;
@@ -38,7 +38,7 @@ public class DriveTrain extends Subsystem {
   public VictorSPX leftVictor1, leftVictor2;
   public VictorSPX rightVictor1, rightVictor2;
   
-  private AHRS gyro;
+  //private AHRS gyro;
   public  double initangle;
   public boolean gyroPresent;
   BuiltInAccelerometer accelerometer;
@@ -51,6 +51,7 @@ public class DriveTrain extends Subsystem {
 
     accelerometer = new BuiltInAccelerometer();
 
+    revDir = true;
     lastGearState = false;
 
     leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
@@ -115,9 +116,9 @@ public class DriveTrain extends Subsystem {
 		new SensorCollection(rightTalon);
 
     try {
-      gyro = new AHRS(RobotMap.Ports.AHRS);
-    gyro.reset();
-    initangle = gyro.getAngle();
+      //gyro = new AHRS(RobotMap.Ports.AHRS);
+    //gyro.reset();
+    initangle = 0;//gyro.getAngle();
     gyroPresent = true;
     }
     catch(RuntimeException e){
@@ -159,20 +160,20 @@ public class DriveTrain extends Subsystem {
   }
 
   public void automaticShifting(){
-    if (getLeftEncoderRate() >= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() >= RobotMap.Values.shiftVelocityUp && lastGearState == false /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+    /*if (getLeftEncoderRate() >= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() >= RobotMap.Values.shiftVelocityUp && lastGearState == false) {
         System.out.println("I shifted up!");
         setGear(true);
         lastGearState = true;
-    } else if (getLeftEncoderRate() <= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() <= RobotMap.Values.shiftVelocityUp && lastGearState == true /*&& Math.abs(OI.getLeftYAxis()) == 1*/) {
+    } else if (getLeftEncoderRate() <= RobotMap.Values.shiftVelocityUp && getRightEncoderRate() <= RobotMap.Values.shiftVelocityUp && lastGearState == true) {
         setGear(false);
         lastGearState = false;
         System.out.println("I shifted down!");
-    } else {}
+    } else {}*/
   }
 
   public void setVolts(double leftSpeed, double rightSpeed) {
-    leftTalon.set(ControlMode.PercentOutput, (leftSpeed)*0.7);
-    rightTalon.set(ControlMode.PercentOutput, (rightSpeed)*0.7);
+    leftTalon.set(ControlMode.PercentOutput, (leftSpeed));
+    rightTalon.set(ControlMode.PercentOutput, (rightSpeed));
   }
     
   public void stopVolts() {
@@ -189,7 +190,7 @@ public class DriveTrain extends Subsystem {
 
   public double getAngle() {
     if (gyroPresent){
-      return gyro.getAngle();
+      return 0;//gyro.getAngle();
     }
     else{
       return 0.0;

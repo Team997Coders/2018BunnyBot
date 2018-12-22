@@ -17,7 +17,7 @@ public class toggleHoppers extends Command {
   public toggleHoppers() {
     //TODO: EXTREMELY JANK
     requires(Robot.frontHopper);
-    requires(Robot.backHopper);
+    //requires(Robot.backHopper);
     requires(Robot.sorter);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -29,9 +29,9 @@ public class toggleHoppers extends Command {
   }
 
   public toggleHoppers(boolean _state) {
-    requires(Robot.frontHopper);
-    requires(Robot.backHopper);
-    requires(Robot.sorter);
+    //requires(Robot.frontHopper);
+    //requires(Robot.backHopper);
+    //requires(Robot.sorter);
 
     state = _state;
   }
@@ -44,9 +44,9 @@ public class toggleHoppers extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.frontHopper.setVolts(-.48);
-    Robot.backHopper.setVolts(-.48);
-    Robot.sorter.setMotor(-0.5);
+    //Robot.frontHopper.setVolts(-.48);
+    //Robot.backHopper.setVolts(-.48);
+    //Robot.sorter.setMotor(-0.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -59,9 +59,9 @@ public class toggleHoppers extends Command {
   @Override
   protected void end() {
     if (!state) {
-      Robot.frontHopper.stopVolts();
-      Robot.backHopper.stopVolts();
-      Robot.sorter.stopMotors();
+      //Robot.frontHopper.stopVolts();
+      //Robot.backHopper.stopVolts();
+      //Robot.sorter.stopMotors();
     }
   }
 
@@ -69,7 +69,7 @@ public class toggleHoppers extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.frontHopper.stopVolts();
-    Robot.backHopper.stopVolts();
+    //Robot.frontHopper.stopVolts();
+    //Robot.backHopper.stopVolts();
   }
 }

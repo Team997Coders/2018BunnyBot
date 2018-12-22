@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static BallIntake intake;
   public static FrontHopper frontHopper;
-  public static BackHopper backHopper;
+  //public static BackHopper backHopper;
   public static OutTake outtake;
   public static Sorter sorter;
   public static BunnyEjector bunnyEjector;
@@ -65,28 +65,31 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveTrain();
     intake = new BallIntake();
     frontHopper = new FrontHopper();
-    backHopper = new BackHopper();
-    oi = new OI();
     outtake = new OutTake();
     sorter = new Sorter();
     bunnyEjector = new BunnyEjector();
+    //backHopper = new BackHopper();
+    oi = new OI();
+    
+    
 
     //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     
 
     chooser.addDefault("Default", null);
-    chooser.addObject("Go to Angle P", new PDriveToAngle(-90));
-    chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
-    chooser.addObject("Got to 90 degress", new TurnToAngle(90));
-    chooser.addObject("Anidentifyingthingthatwillreaduponthatdashboard", new ADriveForward());
-    chooser.addObject("Go Forward Nerd", new ADriveForward());
-    chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
-    chooser.addObject("Sort things", new Sortstuff(false, sorter));
+    //chooser.addObject("Go to Angle P", new PDriveToAngle(-90));
+    //chooser.addObject("Go to Distance P", new PDriveToDistance(RobotMap.Values.ticksPerFoot));
+    //chooser.addObject("Got to 90 degress", new TurnToAngle(90));
+    //chooser.addObject("Go Forward Nerd", new ADriveForward());
+    //chooser.addObject("Go Forward a bit", new DriveToDistance(RobotMap.Values.ticksPerFoot));
+    //chooser.addObject("Sort things", new Sortstuff(false, sorter));
+    //SmartDashboard.putData("Auto commands", chooser);
+    //SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
+    //chooser.addObject("Simple Auto", new SimpleAuto());
+    chooser.addObject("Drive forward 5 ft and spin around", new AutoJankieBoi());
+    chooser.addObject("Drive forward 2 ft, eject a ball", new AutoDumpBall());
     SmartDashboard.putData("Auto commands", chooser);
-    SmartDashboard.putData("PTurn to Angle", new PDriveToAngle(-90));
-    chooser.addObject("Simple Auto", new SimpleAuto());
-  
     /*inst = NetworkTableInstance.create();
     table = inst.getTable("fakecam");
     ballType = table.getEntry("ball");*/
@@ -141,7 +144,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = chooser.getSelected();
+    m_autonomousCommand = new AutoDumpBall();
     driveTrain.updatePIDValues();
 
     /*
@@ -194,7 +197,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    driveTrain.automaticShifting();
     updateSmartDashboard();
   }
 

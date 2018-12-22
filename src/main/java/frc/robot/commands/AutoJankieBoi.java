@@ -17,7 +17,7 @@ public class AutoJankieBoi extends CommandGroup {
   public AutoJankieBoi() {
 
     addSequential(new DriveToDistance(Robot.feetToTicks(5)));
-    addSequential(new PDriveToAngle(400));
+    //addSequential(new PDriveToAngle(400));
 
     // Add Commands here:
     // e.g. addSequential(new Command1());

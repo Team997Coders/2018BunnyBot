@@ -26,16 +26,24 @@ public class BunnyEjector extends Subsystem {
   
   public BunnyEjector(){
     
+    
     bunnyEjectorSolenoid = new DoubleSolenoid(RobotMap.Ports.bunnyEjectorSolenoidPort1, RobotMap.Ports.bunnyEjectorSolenoidPort2); 
-  
+    bunnyEjectorSolenoid.set(Value.kReverse);
     //ejected = this.ejectedState;
   }
   public void ejectBunny(){
     bunnyEjectorSolenoid.set(DoubleSolenoid.Value.kForward);
     ejected = true;
+    try {
+      Thread.sleep(500);
+      bunnyEjectorSolenoid.set(Value.kReverse);
+    } catch (Exception e) {}
   }
   public void stopEjector(){
-    bunnyEjectorSolenoid.set(Value.kOff);
+    bunnyEjectorSolenoid.set(Value.kReverse);
+    
+    
+
   }
   
   @Override

@@ -20,22 +20,22 @@ public class OI {
   Joystick gamepad2;
 
   // GamePad 1
-  JoystickButton shift;
+  JoystickButton sort;
   JoystickButton reverse;
 
   // GamePad 2
   JoystickButton collect;
   JoystickButton eject;
   JoystickButton outtake;
-  JoystickButton toggle;
+  //JoystickButton toggle;
   JoystickButton yeet;
 
   public OI() {
     gamepad1 = new Joystick(RobotMap.Ports.gamepad1);
     gamepad2 = new Joystick(RobotMap.Ports.gamepad2);
 
-    shift = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
-    shift.whenPressed(new GearShift());
+    sort = new JoystickButton(gamepad1, RobotMap.Ports.ButtonX);
+    sort.toggleWhenPressed(new SorterRunMotors(true, Robot.sorter));
 
     reverse = new JoystickButton(gamepad1, RobotMap.Ports.ButtonY);
     reverse.whenPressed(new SwapDirection());
@@ -52,8 +52,8 @@ public class OI {
     yeet = new JoystickButton(gamepad2, RobotMap.Ports.ButtonB);
     yeet.whenPressed(new EjectBunny());
 
-    toggle = new JoystickButton(gamepad2, RobotMap.Ports.ButtonStart);
-    toggle.whenPressed(new toggleHoppers());
+    //toggle = new JoystickButton(gamepad2, RobotMap.Ports.ButtonStart);
+    //toggle.toggleWhenPressed(new toggleHoppers());
   }
 
   public double getRightYAxis() {

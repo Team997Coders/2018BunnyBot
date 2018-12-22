@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 //import edu.wpi.first.wpilibj.VictorSP;
+import frc.robot.commands.FrontHopperEnabled;
 
 public class FrontHopper extends Subsystem {
  
@@ -41,7 +42,7 @@ public class FrontHopper extends Subsystem {
  
   @Override
   public void initDefaultCommand() {
-
+    //setDefaultCommand(new FrontHopperEnabled());
   }
   
   public void updateSmartDashboard(){
